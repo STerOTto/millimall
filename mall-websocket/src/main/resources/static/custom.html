@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>WebSocket Test</title>
+<script language="javascript"type="text/javascript">
+//    var wsUri ="ws://echo.websocket.org/";
+//    var wsUri ="wss://192.168.1.168:8443/api/v1/namespaces/default/pods/qy-20161116191858-q1zit-ffm4e-898007164-zydxe/log?follow=true&tailLines=5000&limitBytes=10485760&container=qy-20161116191858-q1zitserv0&access_token=RXvVnxL-c_lg_Q5NBLiGiTJvx3ePBqSrOyDSxeRJm40";
+    var wsUri ="wss://192.168.1.168:8443/api/v1/namespaces/default/events?watch=true&resourceVersion=2877638&access_token=RXvVnxL-c_lg_Q5NBLiGiTJvx3ePBqSrOyDSxeRJm40";
+    var output;
+
+    function init() {
+        output = document.getElementById("output");
+        testWebSocket();
+    }
+
+    function testWebSocket() {
+        websocket = new WebSocket(wsUri);
+        // websocket.binaryType = "arraybuffer";
+        websocket.onopen = function(evt) {
+            onOpen(evt)
+        };
+        websocket.onclose = function(evt) {
+            onClose(evt)
+        };
+        websocket.onmessage = function(evt) {
+            onMessage(evt)
+        };
+        websocket.onerror = function(evt) {
+            onError(evt)
+        };
+    }
+
+    function onOpen(evt) {
+        writeToScreen("CONNECTED");
+        doSend("WebSocket rocks");
+    }
+
+    function onClose(evt) {
+        writeToScreen("DISCONNECTED");
+    }
+
+    function onMessage(evt) {
+        if (typeof evt.data === 'Blob') {
+            var reader = new window.FileReader();
+            reader.readAsBinaryString(evt.data);
+            reader.onloadend = function() {
+                // base64data = reader.result;
+                console.log('onMessage:', reader.result);
+                writeToScreen('<span style="color: blue;">RESPONSE: '+ reader.result+'</span>');
+                websocket.close();
+            }
+        } else {
+            console.log('onMessage:', evt.data);
+            writeToScreen('<span style="color: blue;">RESPONSE: '+ evt.data+'</span>');
+            websocket.close();
+        }
+    }
+
+    function onError(evt) {
+        writeToScreen('<span style="color: red;">ERROR:</span> '+ evt.data);
+    }
+
+    function doSend(message) {
+        writeToScreen("SENT: " + message);
+        websocket.send(message);
+    }
+
+    function writeToScreen(message) {
+        var pre = document.createElement("p");
+        pre.style.wordWrap = "break-word";
+        pre.innerHTML = message;
+        output.appendChild(pre);
+    }
+
+    window.addEventListener("load", init, false);
+</script>
+<h2>WebSocket Test</h2>
+<div id="output"></div>
+</html>

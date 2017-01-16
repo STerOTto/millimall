@@ -1,0 +1,23 @@
+server:
+  port: 9999
+  context-path: /a
+
+spring:
+  application:
+    name: oauth2-server
+  datasource:
+    name: oauth2-db
+    url: jdbc:mysql://localhost:3306/mall-oauth2?verifyServerCertificate=false&useSSL=false&characterEncoding=UTF-8
+    username: root
+    password: root
+  output:
+    ansi:
+      enabled: detect
+
+security:
+  oauth2:
+    authorization:
+      check-token-access: isAuthenticated()
+logging:
+  level:
+    org.springframework.security: DEBUG
