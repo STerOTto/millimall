@@ -31,18 +31,20 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.sql.DataSource;
 import java.security.KeyPair;
 
 /**
- * This guy is lazy, nothing left.
+ * OAuth2 Server Launcher
  *
  * @author John Zhang
  */
 @ComponentScan({ "com.millinch.oauth2" })
 @SpringBootApplication
+@EnableRedisHttpSession
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Import(WebMvcConfiguration.class)
 @SessionAttributes("authorizationRequest")

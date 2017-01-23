@@ -1,6 +1,6 @@
 server:
   port: 9999
-  context-path: /a
+  context-path: /sso
 
 spring:
   application:
@@ -13,11 +13,15 @@ spring:
   output:
     ansi:
       enabled: detect
+  redis:
+    host: localhost
+    port: 32768
 
 security:
   oauth2:
     authorization:
       check-token-access: isAuthenticated()
+
 logging:
   level:
     org.springframework.security: DEBUG
