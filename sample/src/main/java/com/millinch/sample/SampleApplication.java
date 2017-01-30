@@ -1,6 +1,6 @@
 package com.millinch.sample;
 
-import com.millinch.account.thrift.CalculatorService;
+import com.millinch.mall.account.thrift.CalculatorService;
 import info.developerblog.spring.thrift.annotation.ThriftClient;
 import org.apache.thrift.TException;
 import org.springframework.beans.factory.annotation.Autowired;
