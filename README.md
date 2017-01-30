@@ -1,2 +1,5 @@
 # Online Shopping Mall - Microservices Architecture In Practice
-foo
+-----------------------------------------------------------------
+
+The goal of this project is to use Spring Cloud to build a practical
+microservices architecture mall system
