@@ -1,8 +1,8 @@
-package com.millinch.account.service.impl;
+package com.millinch.mall.account.service.impl;
 
-import com.millinch.account.entity.Account;
-import com.millinch.account.mapper.AccountMapper;
-import com.millinch.account.service.AccountService;
+import com.millinch.mall.account.entity.Account;
+import com.millinch.mall.account.mapper.AccountMapper;
+import com.millinch.mall.account.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

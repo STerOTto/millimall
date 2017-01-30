@@ -1,7 +1,7 @@
-package com.millinch.account.mapper;
+package com.millinch.mall.account.mapper;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.millinch.account.entity.Account;
+import com.millinch.mall.account.entity.Account;
 import com.millinch.core.config.DaoConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;

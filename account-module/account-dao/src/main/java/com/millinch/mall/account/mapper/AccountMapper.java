@@ -1,7 +1,7 @@
-package com.millinch.account.mapper;
+package com.millinch.mall.account.mapper;
 
 import com.baomidou.mybatisplus.mapper.AutoMapper;
-import com.millinch.account.entity.Account;
+import com.millinch.mall.account.entity.Account;
 
 /**
  * This guy is lazy, nothing left.

@@ -1,4 +1,4 @@
-package com.millinch.account.thrift;
+package com.millinch.mall.account.thrift;
 
 import org.apache.thrift.TException;
 import ru.trylogic.spring.boot.thrift.annotation.ThriftController;

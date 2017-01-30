@@ -1,6 +1,6 @@
-package com.millinch.account.service;
+package com.millinch.mall.account.service;
 
-import com.millinch.account.entity.Account;
+import com.millinch.mall.account.entity.Account;
 
 import java.util.List;
 

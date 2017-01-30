@@ -1,4 +1,4 @@
-package com.millinch.account.entity;
+package com.millinch.mall.account.entity;
 
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;

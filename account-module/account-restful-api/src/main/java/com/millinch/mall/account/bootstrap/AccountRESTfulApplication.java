@@ -1,4 +1,4 @@
-package com.millinch.account.bootstrap;
+package com.millinch.mall.account.bootstrap;
 
 import com.millinch.core.config.DaoConfig;
 import org.springframework.boot.SpringApplication;
