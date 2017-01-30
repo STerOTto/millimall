@@ -7,15 +7,15 @@ spring:
     name: oauth2-server
   datasource:
     name: oauth2-db
-    url: jdbc:mysql://localhost:3306/mall-oauth2?verifyServerCertificate=false&useSSL=false&characterEncoding=UTF-8
+    url: jdbc:mysql://${MYSQL_URL_DOCKER:localhost:13306}/mall_oauth2?verifyServerCertificate=false&useSSL=false&characterEncoding=UTF-8
     username: root
-    password: root
+    password: 14yhl9t
   output:
     ansi:
       enabled: detect
   redis:
-    host: localhost
-    port: 32768
+    host: ${REDIS_HOST_DOCKER:localhost}
+    port: ${REDIS_PORT_DOCKER:16379}
 
 security:
   oauth2:

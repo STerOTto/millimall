@@ -1,0 +1,55 @@
+version: '2'
+services:
+#Redis
+  RedisServer:
+    container_name: "redis"
+    image: redis
+    ports:
+      - "16379:6379"
+    networks:
+      - "oauth2-network"
+
+#MySQL
+  OAuth2MySQL:
+    container_name: "oauth2-mysql"
+    image: mysql
+    networks:
+      - "oauth2-network"
+    ports:
+      - "13306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=14yhl9t
+      - MYSQL_DATABASE=mall_oauth2
+    volumes:
+      - $HOME/.mall_docker_volumes/mysql/data/:/var/lib/mysql
+    command:
+      [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci]
+##Nginx
+#  OAuth2Nginx:
+#    container_name: "oauth2-nginx"
+#    image: nginx
+#    ports:
+#      - "9999:80"
+#    networks:
+#      - "oauth2-network"
+#    volumes:
+#      - $HOME/.mall_docker_volumes/nginx/:/etc/nginx/conf.d/
+#    environment:
+#      - OAUTH2_SERVER_1=oauth2-1:9999
+##OAuth2 server 1
+#  OAuth2Server_1:
+#    container_name: "oauth2"
+#    image: millinch/mall-oauth2-server
+#    ports:
+#      - "9999:9999"
+#    networks:
+#      - "oauth2-network"
+#    environment:
+#      - JAVA_OPTS="-Xms128m -Xmx512m"
+#      - MYSQL_URL_DOCKER=oauth2-mysql:3306
+#      - REDIS_HOST_DOCKER=redis
+#      - REDIS_PORT_DOCKER=6379
+#    command: bash -c "java -Djava.security.egd=file:/dev/./urandom -jar /app.jar"
+networks:
+  oauth2-network:
+    driver: bridge
