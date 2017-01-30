@@ -60,7 +60,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.millinch.cloud.EurekaApplication</mainClass>
+                    <mainClass>com.millinch.mall.cloud.EurekaApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

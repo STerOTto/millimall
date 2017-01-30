@@ -1,4 +1,4 @@
-package com.millinch.cloud;
+package com.millinch.mall.cloud;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
