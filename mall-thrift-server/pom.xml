@@ -23,18 +23,18 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Camden.SR3</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-consul-discovery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-actuator</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.millinch</groupId>
             <artifactId>account-thrift-api</artifactId>
@@ -42,7 +42,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>info.developerblog.spring.thrift</groupId>
@@ -65,10 +65,6 @@
             <version>1.16.12</version>
         </dependency>
 
-        <dependency>
-            <groupId>io.fabric8</groupId>
-            <artifactId>spring-cloud-starter-kubernetes</artifactId>
-        </dependency>
     </dependencies>
 
     <build>

@@ -3,6 +3,12 @@ server:
 spring:
   application:
     name: mall-thrift-server
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+  zipkin:
+    enabled: false
 #eureka:
 #  client:
 #    service-url:
