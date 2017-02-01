@@ -14,12 +14,10 @@
 
     <dependencies>
         <dependency>
-            <groupId>info.developerblog.spring.thrift</groupId>
-            <artifactId>spring-thrift-autoconfigure</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.thrift</groupId>
-            <artifactId>libthrift</artifactId>
+            <groupId>com.millinch</groupId>
+            <artifactId>mall-thrift-dependencies</artifactId>
+            <version>1.0-alpha-1</version>
+            <type>pom</type>
         </dependency>
     </dependencies>
 

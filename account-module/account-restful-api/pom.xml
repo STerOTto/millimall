@@ -17,15 +17,19 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--<dependency>
             <groupId>com.millinch</groupId>
             <artifactId>spring-boot-druid-starter</artifactId>
             <version>1.0-alpha-1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.millinch</groupId>
-            <artifactId>mall-dao-config</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.millinch</groupId>
             <artifactId>account-service</artifactId>
@@ -33,4 +37,12 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

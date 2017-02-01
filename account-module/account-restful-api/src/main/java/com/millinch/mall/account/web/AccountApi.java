@@ -1,4 +1,4 @@
-package com.millinch.mall.account.restful;
+package com.millinch.mall.account.web;
 
 import com.millinch.mall.account.entity.Account;
 import com.millinch.mall.account.service.AccountService;

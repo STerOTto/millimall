@@ -1,11 +1,15 @@
 spring:
   datasource:
-    druid:
-      properties:
-        driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8
-        username: root
-        password: root
-        filters: stat,wall
-      stat-servlet:
-        url-mapping: /druid/*
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: root
+#    druid:
+#      properties:
+#        driverClassName: com.mysql.jdbc.Driver
+#        url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8
+#        username: root
+#        password: root
+#        filters: stat,wall
+#      stat-servlet:
+#        url-mapping: /druid/*
