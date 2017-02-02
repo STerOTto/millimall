@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.io.Serializable;
 import java.util.Date;
 
-@TableName("sys_user")
+@TableName("mall_account")
 public class Account implements Serializable {
 
     @TableId
@@ -21,7 +21,7 @@ public class Account implements Serializable {
     /**
      * 用户名
      */
-    private String userName;
+    private String username;
 
     /**
      * 昵称
@@ -83,6 +83,10 @@ public class Account implements Serializable {
      */
     private Integer score;
 
+    private Integer level;
+
+    private Boolean enabled;
+
     /**
      * 状态：0禁用 1正常
      */
@@ -99,8 +103,8 @@ public class Account implements Serializable {
     public Account() {
     }
 
-    public Account(String userName) {
-        this.userName = userName;
+    public Account(String username) {
+        this.username = username;
     }
 
     /**
@@ -140,17 +144,17 @@ public class Account implements Serializable {
      *
      * @return user_name - 用户名
      */
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
     /**
      * 设置用户名
      *
-     * @param userName 用户名
+     * @param username 用户名
      */
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**
@@ -369,6 +373,22 @@ public class Account implements Serializable {
         this.score = score;
     }
 
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
     /**
      * 获取状态：0禁用 1正常
      *
@@ -445,6 +465,6 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("id", id).append("mobilePhone", mobilePhone).append("userName", userName).append("nickname", nickname).append("password", password).append("salt", salt).append("signature", signature).append("gender", gender).append("qq", qq).append("email", email).append("avatar", avatar).append("province", province).append("city", city).append("regIp", regIp).append("score", score).append("status", status).append("createBy", createBy).append("createAt", createAt).append("updateBy", updateBy).append("updateAt", updateAt).toString();
+        return new ToStringBuilder(this).append("id", id).append("mobilePhone", mobilePhone).append("username", username).append("nickname", nickname).append("password", password).append("salt", salt).append("signature", signature).append("gender", gender).append("qq", qq).append("email", email).append("avatar", avatar).append("province", province).append("city", city).append("regIp", regIp).append("score", score).append("status", status).append("createBy", createBy).append("createAt", createAt).append("updateBy", updateBy).append("updateAt", updateAt).toString();
     }
 }
