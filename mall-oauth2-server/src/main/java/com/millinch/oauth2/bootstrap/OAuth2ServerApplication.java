@@ -4,6 +4,7 @@ import com.millinch.oauth2.web.WebMvcConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -44,6 +45,7 @@ import java.security.KeyPair;
  */
 @ComponentScan({ "com.millinch.oauth2" })
 @SpringBootApplication
+@EnableDiscoveryClient
 @EnableRedisHttpSession
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Import(WebMvcConfiguration.class)

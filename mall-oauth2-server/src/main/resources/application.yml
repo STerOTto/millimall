@@ -13,6 +13,12 @@ spring:
   output:
     ansi:
       enabled: detect
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        health-check-path: ${server.context-path}/health
   redis:
     host: ${REDIS_HOST_DOCKER:localhost}
     port: ${REDIS_PORT_DOCKER:16379}
@@ -21,6 +27,7 @@ security:
   oauth2:
     authorization:
       check-token-access: isAuthenticated()
+  ignored: /health
 
 logging:
   level:
