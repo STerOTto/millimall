@@ -1,5 +1,6 @@
 package com.millinch.springboot.autoconfigure.druid;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
@@ -25,7 +26,8 @@ import javax.sql.XADataSource;
  * @author John Zhang
  */
 @Configuration
-@ConditionalOnClass({ DataSource.class })
+@ConditionalOnClass({ DruidDataSource.class })
+@ConditionalOnMissingBean({ DataSource.class, XADataSource.class })
 @EnableConfigurationProperties({ DruidDatasourceProperties.class })
 public class DruidDatasourceAutoConfiguration {
 
@@ -33,7 +35,7 @@ public class DruidDatasourceAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean({ DataSource.class, XADataSource.class })
-    public DataSource dataSource(DruidDatasourceProperties datasourceProperties) throws Exception {
+    public DataSource dataSource() throws Exception {
         return DruidDataSourceFactory.createDataSource(datasourceProperties.getProperties());
     }
 
