@@ -6,15 +6,17 @@ spring:
     name: mall-sample
   cloud:
     consul:
+#      discovery:
+#        enabled: false
       host: localhost
       port: 8500
   datasource:
     druid:
       properties:
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8
+        url: jdbc:mysql://${MYSQL_URL_DOCKER:localhost:13306}/mall_oauth2?useUnicode=true&characterEncoding=UTF-8
         username: root
-        password: root
+        password: 14yhl9t
         filters: stat,wall
       stat-servlet:
         url-mapping: /druid/*
@@ -22,8 +24,8 @@ spring:
     enabled: false
 
 security:
-  user:
-    password: none
+  basic:
+    enabled: false
   oauth2:
     client:
       accessTokenUri: http://localhost:9999/sso/oauth/token
