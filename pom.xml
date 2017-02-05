@@ -21,6 +21,7 @@
         <module>mall-dao-config</module>
         <module>mall-eureka-server</module>
         <module>mall-oauth2-server</module>
+        <module>mall-admin-gateway</module>
     </modules>
 
     <properties>
