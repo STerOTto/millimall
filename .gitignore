@@ -11,6 +11,11 @@ rebel.xml
 .project
 .settings
 .DS_Store
+Thumbs.db
+
+/dist
+/tmp
+/node_modules
 
 classes/
 target
