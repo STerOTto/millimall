@@ -1,7 +1,14 @@
 # As many as wanted
-web:
-  image: tutum/hello-world
-  environment:
-    SERVICE_NAME: 'www-hello'
-    SERVICE_CHECK_HTTP: '/'
-    SERVICE_CHECK_INTERVAL: '5s'
+version: '2'
+services:
+  web:
+    image: tutum/hello-world
+    networks:
+      - "consul-cloud-network"
+    environment:
+      SERVICE_NAME: 'www-hello'
+      SERVICE_CHECK_HTTP: '/'
+      SERVICE_CHECK_INTERVAL: '5s'
+networks:
+  consul-cloud-network:
+    driver: bridge
