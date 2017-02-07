@@ -2,4 +2,4 @@
 -----------------------------------------------------------------
 
 The goal of this project is to use Spring Cloud to build a practical
-microservices architecture mall system
+microservices architecture mall system, using docker to deploy.
