@@ -1,0 +1,17 @@
+server:
+  port: 8888
+
+spring:
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: ${SPRING_CONFIG_DIR:${HOME}/.mall_docker_volumes/config-server-files}
+    consul:
+      port: 8500
+      host: localhost
+management:
+  security:
+    enabled: false
