@@ -34,15 +34,15 @@
         <jsqlparser.version>0.9.1</jsqlparser.version>
         <jackson-databind.version>2.3.5</jackson-databind.version>
         <quartz.version>2.2.1</quartz.version>
-        <spring-boot.version>1.4.2.RELEASE</spring-boot.version>
+        <spring-boot.version>1.5.1.RELEASE</spring-boot.version>
         <project.version>1.0-alpha-1</project.version>
         <maven-thrift-plugin.version>0.1.11</maven-thrift-plugin.version>
         <spring-thrift-autoconfigure.version>1.4.0.RELEASE</spring-thrift-autoconfigure.version>
         <libthrift.version>0.9.3</libthrift.version>
         <docker.plugin.version>0.4.13</docker.plugin.version>
         <spring-cloud-starter-kubernetes.version>0.1.4</spring-cloud-starter-kubernetes.version>
-        <spring-cloud-dependencies.version>Camden.SR3</spring-cloud-dependencies.version>
-        <spring-security.version>4.1.1.RELEASE</spring-security.version>
+        <spring-cloud-dependencies.version>Camden.SR5</spring-cloud-dependencies.version>
+        <spring-security.version>4.2.1.RELEASE</spring-security.version>
         <junit.version>4.12</junit.version>
     </properties>
 
@@ -62,6 +62,14 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!--<dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-bus-dependencies</artifactId>
+                <version>1.2.1.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>-->
+
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-bom</artifactId>
