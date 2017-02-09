@@ -21,9 +21,15 @@ services:
       - MYSQL_ROOT_PASSWORD=14yhl9t
       - MYSQL_DATABASE=mall_oauth2
     volumes:
-      - $HOME/.mall_docker_volumes/mysql/data/:/var/lib/mysql
+      - $HOME/.millmall/mall-docker-volumes/mysql/data/:/var/lib/mysql
     command:
       [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci]
+  RabbitMQ:
+    container_name: "rabbitmq"
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 ##Nginx
 #  OAuth2Nginx:
 #    container_name: "oauth2-nginx"
@@ -33,7 +39,7 @@ services:
 #    networks:
 #      - "consul-cloud-network"
 #    volumes:
-#      - $HOME/.mall_docker_volumes/nginx/:/etc/nginx/conf.d/
+#      - $HOME/.millmall/mall-docker-volumes/nginx/:/etc/nginx/conf.d/
 #    environment:
 #      - OAUTH2_SERVER_1=oauth2-1:9999
 ##OAuth2 server 1
