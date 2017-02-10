@@ -8,7 +8,7 @@ spring:
     config:
       server:
         native:
-          search-locations: ${SPRING_CONFIG_DIR:${HOME}/.millimall/config-server-files}
+          search-locations: file:${SPRING_CONFIG_DIR:${HOME}/.millimall/config-server-files}
     consul:
       port: 8500
       host: localhost
