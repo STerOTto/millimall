@@ -3,34 +3,36 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.millinch</groupId>
+    <artifactId>goods-module</artifactId>
+    <version>1.0-alpha-1</version>
     <packaging>pom</packaging>
 
-    <description>Online Mall System</description>
-    <groupId>com.millinch</groupId>
-    <artifactId>mall</artifactId>
-    <version>1.0-alpha-1</version>
-
     <modules>
-        <module>mall-dependencies</module>
-        <module>spring-boot-druid-autoconfigure</module>
-        <module>spring-boot-druid-starter</module>
-        <module>sample</module>
-        <module>account-module</module>
-        <module>mall-websocket</module>
-        <module>mall-thrift-server</module>
-        <module>mall-dao-config</module>
-        <module>mall-eureka-server</module>
-        <module>mall-oauth2-server</module>
-        <module>goods-module</module>
-        <module>mall-admin-gateway</module>
-        <module>mall-config-server</module>
+        <module>goods-dao</module>
+        <module>goods-model</module>
+        <module>goods-service</module>
+        <module>goods-restful-api</module>
     </modules>
 
     <properties>
-        <java.version>1.8</java.version>
+        <mall-dependencies.version>1.0-alpha-1</mall-dependencies.version>
         <encoding>UTF-8</encoding>
+        <java.version>1.7</java.version>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.millinch</groupId>
+                <artifactId>mall-dependencies</artifactId>
+                <version>${mall-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
