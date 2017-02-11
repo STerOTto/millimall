@@ -20,10 +20,6 @@
     </rule>
 
     <rule>
-        <from>/ping</from>
-        <to>/pong.html</to>
-    </rule>
-    <rule>
         <from>/products/([0-9]+)</from>
         <to>/products/index.jsp?product_id=$1</to>
     </rule>

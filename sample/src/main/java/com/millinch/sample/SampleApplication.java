@@ -8,19 +8,24 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.tuckey.web.filters.urlrewrite.UrlRewriteFilter;
 
 import javax.servlet.DispatcherType;
+import java.util.List;
 
 /**
  * This guy is lazy, nothing left.
@@ -39,6 +44,9 @@ public class SampleApplication extends WebSecurityConfigurerAdapter {
     @Autowired
     DiscoveryClient discoveryClient;
 
+    @Autowired
+    LoadBalancerClient loadBalancerClient;
+
     @ResponseBody
     @RequestMapping("/test")
     public int test(String operator,
@@ -53,11 +61,14 @@ public class SampleApplication extends WebSecurityConfigurerAdapter {
         }
     }
 
-    @ResponseBody
     @RequestMapping("/ping")
-    public String ping(@RequestParam(defaultValue = "foobar") String data) {
-
-        return discoveryClient.description();
+    public ResponseEntity ping(@RequestParam(defaultValue = "oauth2-server") String serviceId,
+                               Model model) {
+        List<ServiceInstance> instances = discoveryClient.getInstances(serviceId);
+        ServiceInstance chosen = loadBalancerClient.choose(serviceId);
+        model.addAttribute("instances", instances);
+        model.addAttribute("chosen", chosen);
+        return ResponseEntity.ok(model);
     }
 
     public static void main(String[] args) {
