@@ -21,7 +21,7 @@ services:
       - MYSQL_ROOT_PASSWORD=14yhl9t
       - MYSQL_DATABASE=mall_oauth2
     volumes:
-      - $HOME/.millmall/mall-docker-volumes/mysql/data/:/var/lib/mysql
+      - $HOME/.millimall/mall-docker-volumes/mysql/data/:/var/lib/mysql
     command:
       [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci]
   RabbitMQ:
