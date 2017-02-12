@@ -15,9 +15,10 @@ spring:
       enabled: detect
   cloud:
     consul:
-      host: localhost
-      port: 8500
+      host: ${CONSUL_HOST_DOCKER:localhost}
+      port: ${CONSUL_PORT_DOCKER:8500}
       discovery:
+        instance-id: oauth2-server
         health-check-path: ${server.context-path}/health
   redis:
     host: ${REDIS_HOST_DOCKER:localhost}
