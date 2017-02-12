@@ -1,0 +1,34 @@
+server:
+  port: 9999
+  context-path: /sso
+
+spring:
+  application:
+    name: oauth2-server
+  datasource:
+    name: oauth2-db
+    url: jdbc:mysql://${MYSQL_URL_DOCKER:localhost:13306}/mall_oauth2?verifyServerCertificate=false&useSSL=false&characterEncoding=UTF-8
+    username: root
+    password: 14yhl9t
+  output:
+    ansi:
+      enabled: detect
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        health-check-path: ${server.context-path}/health
+  redis:
+    host: ${REDIS_HOST_DOCKER:localhost}
+    port: ${REDIS_PORT_DOCKER:16379}
+
+security:
+  oauth2:
+    authorization:
+      check-token-access: isAuthenticated()
+  ignored: /health
+
+logging:
+  level:
+    org.springframework.security: DEBUG
