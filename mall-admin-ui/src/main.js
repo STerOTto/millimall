@@ -3,18 +3,16 @@
 import Vue from 'vue'
 import App from './App'
 import Vuex from 'vuex'
-import VueRouter from 'vue-router'
 import ElementUI from 'element-ui'
-import routes from './routes'
+import 'element-ui/lib/theme-default/index.css'
+import router from './routes'
 
 Vue.use(ElementUI)
-Vue.use(VueRouter)
 Vue.use(Vuex)
 
-const router = new VueRouter({routes})
 router.beforeEach((to, from, next) => {
   let isAuthenticated = JSON.parse(window.sessionStorage.getItem('isAuthenticated') || 'false')
-  if (isAuthenticated === true) {
+  if (isAuthenticated === true || to.path === '/login') {
     next()
   } else {
     next({ path: '/login' })
@@ -27,4 +25,4 @@ new Vue({
   template: '<App/>',
   router,
   components: { App }
-})
+}).$mount('#app')

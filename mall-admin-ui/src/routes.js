@@ -1,15 +1,24 @@
-import Login from './components/Login.vue'
+import Vue from 'vue'
+import Router from 'vue-router'
 
-/**
- * Created by johntostring on 17/2/13.
- */
-let routes = [
-  {
-    path: '/login',
-    component: Login,
-    name: '',
-    hidden: true
-  }
-]
+Vue.use(Router)
+import Login from './components/Login'
+import Hello from './components/Hello'
 
-export default routes
+export default new Router({
+  mode: 'history',
+  routes: [
+    {
+      path: '/login',
+      component: Login,
+      name: '',
+      hidden: true
+    },
+    {
+      path: '/hello',
+      component: Hello,
+      name: '',
+      hidden: true
+    }
+  ]
+})

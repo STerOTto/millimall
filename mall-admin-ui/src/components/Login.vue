@@ -15,6 +15,8 @@
 </template>
 
 <script>
+  import router from '../routes'
+
   export default {
     data () {
       return {
@@ -40,6 +42,7 @@
       handleLogin () {
         window.sessionStorage.setItem('isAuthenticated', 'true')
         this.isAuthenticated = true
+        router.replace('/hello')
       }
     }
   }
