@@ -1,14 +1,37 @@
 # As many as wanted
 version: '2'
 services:
-  web:
-    image: tutum/hello-world
+#  web:
+#    image: tutum/hello-world
+#    networks:
+#      - "consul-cloud-network"
+#    environment:
+#      SERVICE_NAME: 'www-hello'
+#      SERVICE_CHECK_HTTP: '/'
+#      SERVICE_CHECK_INTERVAL: '5s'
+  oauth2-server:
+    image: millinch/mall-oauth2-server
+    container_name: "oauth2-server"
+    depends_on:
+      - consul
+      - registrator
+      - lb
+      - OAuth2MySQL
+      - RedisServer
     networks:
       - "consul-cloud-network"
     environment:
-      SERVICE_NAME: 'www-hello'
-      SERVICE_CHECK_HTTP: '/'
+      SERVICE_9999_NAME: 'www-oauth2'
+      SERVICE_CHECK_HTTP: '/sso/health'
       SERVICE_CHECK_INTERVAL: '5s'
+      JAVA_OPTS: '-Xms128m -Xmx512m'
+      MYSQL_URL_DOCKER: OAuth2MySQL:3306
+      REDIS_HOST_DOCKER: RedisServer
+      REDIS_PORT_DOCKER: 6379
+      CONSUL_HOST_DOCKER: consul
+      CONSUL_PORT_DOCKER: 8500
+    ports:
+      - 9999:9999
 networks:
   consul-cloud-network:
     driver: bridge
