@@ -1,6 +1,6 @@
-package com.millinch.oauth2.bootstrap;
+package com.millinch.mall.oauth2;
 
-import com.millinch.oauth2.web.WebMvcConfiguration;
+import com.millinch.mall.oauth2.web.WebMvcConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -43,7 +43,6 @@ import java.security.KeyPair;
  *
  * @author John Zhang
  */
-@ComponentScan({ "com.millinch.oauth2" })
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableRedisHttpSession

@@ -1,4 +1,4 @@
-package com.millinch.oauth2.web;
+package com.millinch.mall.oauth2.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.millinch.oauth2.web;
+package com.millinch.mall.oauth2.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

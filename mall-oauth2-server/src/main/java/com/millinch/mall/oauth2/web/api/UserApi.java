@@ -1,4 +1,4 @@
-package com.millinch.oauth2.web.api;
+package com.millinch.mall.oauth2.web.api;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
