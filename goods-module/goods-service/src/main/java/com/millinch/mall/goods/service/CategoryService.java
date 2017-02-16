@@ -1,5 +1,6 @@
 package com.millinch.mall.goods.service;
 
+import com.baomidou.mybatisplus.service.IService;
 import com.millinch.mall.goods.entity.Category;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author John Zhang
  */
-public interface CategoryService {
+public interface CategoryService extends IService<Category> {
 
     List<Category> getCategoryTree();
 }

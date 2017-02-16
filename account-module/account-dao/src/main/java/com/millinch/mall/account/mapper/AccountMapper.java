@@ -1,6 +1,6 @@
 package com.millinch.mall.account.mapper;
 
-import com.baomidou.mybatisplus.mapper.AutoMapper;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.millinch.mall.account.entity.Account;
 
 /**
@@ -8,5 +8,5 @@ import com.millinch.mall.account.entity.Account;
  *
  * @author John Zhang
  */
-public interface AccountMapper extends AutoMapper<Account> {
+public interface AccountMapper extends BaseMapper<Account> {
 }
