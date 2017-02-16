@@ -1,52 +1,87 @@
 package com.millinch.mall.goods.entity;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.io.Serializable;
 
 /**
- * This guy is lazy, nothing left.
+ * <p>
+ *  商品
+ * </p>
  *
  * @author John Zhang
+ * @since 2017-02-16
  */
-public class Goods {
+@TableName("milli_goods")
+public class Goods implements Serializable {
 
-    @TableId
-    private Long id;
+    private static final long serialVersionUID = 1L;
 
-    private String name;
+	@TableId(type = IdType.AUTO)
+	private Long id;
 
-    private Integer categoryId;
+	@TableField(value="product_id")
+	private Long productId;
 
-    private Long storeId;
+	private String name;
 
-    public Long getId() {
-        return id;
-    }
+	/**
+	 * 数量
+	 */
+	private Integer quantity;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	/**
+	 * 店铺ID
+	 */
+	@TableField(value="store_id")
+	private Long storeId;
 
-    public String getName() {
-        return name;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Integer getCategoryId() {
-        return categoryId;
-    }
+	public Long getProductId() {
+		return productId;
+	}
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
+	public void setProductId(Long id) {
+		this.productId = id;
+	}
 
-    public Long getStoreId() {
-        return storeId;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setStoreId(Long storeId) {
-        this.storeId = storeId;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public Long getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(Long storeId) {
+		this.storeId = storeId;
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this).append("id", id).append("productId", productId).append("name", name).append("quantity", quantity).append("storeId", storeId).toString();
+	}
 }

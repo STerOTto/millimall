@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,9 +14,11 @@ import java.util.List;
  * @author John Zhang
  */
 @TableName("mall_category")
-public class Category {
+public class Category implements Serializable {
 
-    @TableId
+	private static final long serialVersionUID = -8528075190093762574L;
+
+	@TableId
     private Integer id;
 
     private String name;
