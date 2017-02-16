@@ -57,7 +57,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -75,7 +75,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.millinch.oauth2.bootstrap.OAuth2ServerApplication</mainClass>
+                    <mainClass>com.millinch.mall.oauth2.OAuth2ServerApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
