@@ -27,10 +27,9 @@ public abstract class DaoConfig {
         bean.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
         bean.setTypeAliasesPackage(getTypeAliasesPackage());
         PathMatchingResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
-        Resource[] resources = resourcePatternResolver.getResources("classpath*:mapper/*-mapper.xml");
+        Resource[] resources = resourcePatternResolver.getResources(getMapperLocations());
         bean.setMapperLocations(resources);
         bean.setPlugins(new Interceptor[]{ paginationInterceptor() });
-        bean.setDbColumnUnderline(true);
         return bean;
     }
 
