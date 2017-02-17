@@ -1,5 +1,6 @@
 package com.millinch.mall.goods;
 
+import com.baomidou.mybatisplus.enums.DBType;
 import com.millinch.core.config.DaoConfig;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,7 +14,7 @@ public class GoodsDaoConfig extends DaoConfig {
 
     @Override
     public String getDialectType() {
-        return "mysql";
+        return DBType.MYSQL.getDb();
     }
 
     @Override

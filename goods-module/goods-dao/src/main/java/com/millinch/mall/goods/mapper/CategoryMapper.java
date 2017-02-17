@@ -1,6 +1,6 @@
 package com.millinch.mall.goods.mapper;
 
-import com.baomidou.mybatisplus.mapper.AutoMapper;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.millinch.mall.goods.entity.Category;
 
 /**
@@ -8,5 +8,5 @@ import com.millinch.mall.goods.entity.Category;
  *
  * @author John Zhang
  */
-public interface CategoryMapper extends AutoMapper<Category> {
+public interface CategoryMapper extends BaseMapper<Category> {
 }
