@@ -1,5 +1,6 @@
 package com.millinch.mall.account.entity;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -16,6 +17,7 @@ public class Account implements Serializable {
     /**
      * 手机号码
      */
+    @TableField("mobile_phone")
     private String mobilePhone;
 
     /**
@@ -76,6 +78,7 @@ public class Account implements Serializable {
     /**
      * 注册时IP地址
      */
+    @TableField("reg_ip")
     private String regIp;
 
     /**
@@ -92,12 +95,16 @@ public class Account implements Serializable {
      */
     private Integer status;
 
+    @TableField("create_by")
     private Long createBy;
 
+    @TableField("create_at")
     private Date createAt;
 
+    @TableField("update_by")
     private Long updateBy;
 
+    @TableField("update_at")
     private Date updateAt;
 
     public Account() {
