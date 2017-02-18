@@ -1,81 +1,172 @@
-ALTER TABLE `brand` DROP FOREIGN KEY `fk_brand_category`;
-ALTER TABLE `goods` DROP FOREIGN KEY `fk_goods_brand`;
-ALTER TABLE `sku_value` DROP FOREIGN KEY `fk_goods_attribute`;
-ALTER TABLE `goods` DROP FOREIGN KEY `fk_goods_product`;
-ALTER TABLE `sku` DROP FOREIGN KEY `fk_sku_goods`;
-ALTER TABLE `sku` DROP FOREIGN KEY `fk_sku_attribute`;
-ALTER TABLE `sku_value` DROP FOREIGN KEY `fk_sku_value`;
+ALTER TABLE `milli_product` DROP FOREIGN KEY `milli_product_ibfk_1`;
+ALTER TABLE `milli_goods` DROP FOREIGN KEY `milli_goods_ibfk_1`;
+ALTER TABLE `milli_sku` DROP FOREIGN KEY `milli_sku_ibfk_1`;
+ALTER TABLE `milli_goods_attribute` DROP FOREIGN KEY `milli_goods_attribute_ibfk_1`;
+ALTER TABLE `milli_goods_attribute_value` DROP FOREIGN KEY `milli_goods_attribute_value_ibfk_2`;
+ALTER TABLE `milli_goods_attribute_value` DROP FOREIGN KEY `milli_goods_attribute_value_ibfk_3`;
+ALTER TABLE `milli_brand` DROP FOREIGN KEY `milli_brand_ibfk_1`;
+ALTER TABLE `milli_product_attribute` DROP FOREIGN KEY `milli_product_attribute_ibfk_1`;
+ALTER TABLE `milli_product_attribute_value` DROP FOREIGN KEY `milli_product_attribute_value_ibfk_1`;
+ALTER TABLE `milli_product_attribute_value` DROP FOREIGN KEY `milli_product_attribute_value_ibfk_2`;
 
-DROP TABLE `goods`;
-DROP TABLE `brand`;
-DROP TABLE `category`;
-DROP TABLE `attribute`;
-DROP TABLE `sku_value`;
-DROP TABLE `sku`;
-DROP TABLE `product`;
+DROP INDEX `brand_id` ON `milli_product`;
+DROP INDEX `product_id` ON `milli_goods`;
+DROP INDEX `product_id` ON `milli_sku`;
+DROP INDEX `goods_id` ON `milli_goods_attribute`;
+DROP INDEX `goods_id` ON `milli_goods_attribute_value`;
+DROP INDEX `attribute_id` ON `milli_goods_attribute_value`;
+DROP INDEX `category_id` ON `milli_brand`;
+DROP INDEX `product_id` ON `milli_product_attribute`;
+DROP INDEX `product_id` ON `milli_product_attribute_value`;
+DROP INDEX `attribute_id` ON `milli_product_attribute_value`;
 
-CREATE TABLE `goods` (
-  `id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `product_id` bigint(11) NOT NULL,
-  `name` varchar(255) NULL COMMENT '标题',
-  `price` decimal(10,2) NULL COMMENT '售价',
-  `brand_id` bigint(11) NULL COMMENT '所属品牌',
-  PRIMARY KEY (`id`, `product_id`)
-);
+DROP TABLE `milli_product`;
+DROP TABLE `milli_goods`;
+DROP TABLE `milli_sku`;
+DROP TABLE `milli_goods_attribute`;
+DROP TABLE `milli_goods_attribute_value`;
+DROP TABLE `milli_brand`;
+DROP TABLE `milli_category`;
+DROP TABLE `milli_product_attribute`;
+DROP TABLE `milli_product_attribute_value`;
 
-CREATE TABLE `brand` (
-  `id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NULL,
-  `parent_id` bigint(11) NULL DEFAULT -1,
-  `category_id` bigint(11) NULL,
+CREATE TABLE `milli_product` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NULL DEFAULT NULL,
+  `brand_id` bigint(20) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) ,
+  INDEX `brand_id` (`brand_id` ASC) USING BTREE
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 3
+  DEFAULT CHARACTER SET = utf8
+  COLLATE = utf8_general_ci
+  ROW_FORMAT = dynamic;
+
+CREATE TABLE `milli_goods` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `product_id` bigint(20) NULL DEFAULT NULL,
+  `name` varchar(100) NULL DEFAULT NULL,
+  `quantity` int(11) NULL DEFAULT NULL,
+  `store_id` bigint(20) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `product_id` (`product_id` ASC, `name` ASC) USING BTREE
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 4
+  DEFAULT CHARACTER SET = utf8
+  COLLATE = utf8_general_ci
+  ROW_FORMAT = dynamic;
+
+CREATE TABLE `milli_sku` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `store_id` bigint(20) NULL DEFAULT NULL COMMENT '店铺ID',
+  `goods_id` bigint(20) NULL DEFAULT NULL,
+  `name` varchar(255) NULL DEFAULT NULL,
+  `attribute_symbols` varchar(255) NULL DEFAULT NULL,
+  `sku` varchar(255) NULL DEFAULT NULL,
+  `price` decimal(10,2) NULL DEFAULT NULL,
+  `stock` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) ,
+  INDEX `product_id` (`goods_id` ASC) USING BTREE
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 4
+  DEFAULT CHARACTER SET = utf8
+  COLLATE = utf8_general_ci
+  ROW_FORMAT = dynamic;
+
+CREATE TABLE `milli_goods_attribute` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `goods_id` bigint(20) NULL DEFAULT NULL,
+  `name` varchar(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) ,
+  INDEX `goods_id` (`goods_id` ASC) USING BTREE
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 3
+  DEFAULT CHARACTER SET = utf8
+  COLLATE = utf8_general_ci
+  ROW_FORMAT = dynamic;
+
+CREATE TABLE `milli_goods_attribute_value` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `goods_id` bigint(20) NULL DEFAULT NULL,
+  `symbol` int(11) NULL DEFAULT 1 COMMENT 'a code represents a value',
+  `attribute_id` bigint(20) NOT NULL,
+  `value` varchar(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) ,
+  INDEX `goods_id` (`goods_id` ASC) USING BTREE,
+  INDEX `attribute_id` (`attribute_id` ASC) USING BTREE
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 7
+  DEFAULT CHARACTER SET = utf8
+  COLLATE = utf8_general_ci
+  ROW_FORMAT = dynamic;
+
+CREATE TABLE `milli_brand` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NULL DEFAULT NULL,
+  `category_id` bigint(20) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) ,
+  INDEX `category_id` (`category_id` ASC) USING BTREE
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 2
+  DEFAULT CHARACTER SET = utf8
+  COLLATE = utf8_general_ci
+  ROW_FORMAT = dynamic;
+
+CREATE TABLE `milli_category` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NULL DEFAULT NULL,
+  `parent_id` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 )
-  COMMENT = '品牌';
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 1
+  DEFAULT CHARACTER SET = utf8
+  COLLATE = utf8_general_ci
+  ROW_FORMAT = dynamic;
 
-CREATE TABLE `category` (
-  `id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NULL,
-  `parent_id` bigint(11) NULL DEFAULT -1,
-  PRIMARY KEY (`id`)
-);
-
-CREATE TABLE `attribute` (
-  `id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NULL,
-  PRIMARY KEY (`id`)
-);
-
-CREATE TABLE `sku_value` (
-  `product_id` bigint(11) NOT NULL,
-  `goods_id` bigint(11) NOT NULL,
-  `attribute_id` varchar(255) NULL,
-  `value` varchar(255) NULL,
-  PRIMARY KEY (`product_id`, `goods_id`)
-);
-
-CREATE TABLE `sku` (
-  `product_id` bigint(11) NULL,
-  `goods_id` bigint(11) NOT NULL,
-  `attribute_id` bigint(11) NULL,
-  `sku` varchar(255) NULL,
-  `price` decimal(10,2) NULL,
-  `value_id` bigint(11) NULL,
-  PRIMARY KEY (`goods_id`)
+CREATE TABLE `milli_product_attribute` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NULL DEFAULT NULL,
+  `product_id` bigint(20) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) ,
+  INDEX `product_id` (`product_id` ASC) USING BTREE
 )
-  COMMENT = 'stock keeping unit';
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 1
+  DEFAULT CHARACTER SET = utf8
+  COLLATE = utf8_general_ci
+  ROW_FORMAT = dynamic;
 
-CREATE TABLE `product` (
-  `id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NULL,
-  PRIMARY KEY (`id`)
-);
+CREATE TABLE `milli_product_attribute_value` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `product_id` bigint(20) NULL DEFAULT NULL,
+  `attribute_id` bigint(20) NULL DEFAULT NULL,
+  `value` varchar(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) ,
+  INDEX `product_id` (`product_id` ASC) USING BTREE,
+  INDEX `attribute_id` (`attribute_id` ASC) USING BTREE
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 1
+  DEFAULT CHARACTER SET = utf8
+  COLLATE = utf8_general_ci
+  ROW_FORMAT = dynamic;
 
 
-ALTER TABLE `brand` ADD CONSTRAINT `fk_brand_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
-ALTER TABLE `goods` ADD CONSTRAINT `fk_goods_brand` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`);
-ALTER TABLE `sku_value` ADD CONSTRAINT `fk_goods_attribute` FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`id`);
-ALTER TABLE `goods` ADD CONSTRAINT `fk_goods_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
-ALTER TABLE `sku` ADD CONSTRAINT `fk_sku_goods` FOREIGN KEY (`goods_id`, `product_id`) REFERENCES `goods` (`id`, `product_id`);
-ALTER TABLE `sku` ADD CONSTRAINT `fk_sku_attribute` FOREIGN KEY (`attribute_id`) REFERENCES `attribute` (`id`);
-ALTER TABLE `sku_value` ADD CONSTRAINT `fk_sku_value` FOREIGN KEY (`goods_id`, `product_id`) REFERENCES `goods` (`id`, `product_id`);
+ALTER TABLE `milli_product` ADD CONSTRAINT `milli_product_ibfk_1` FOREIGN KEY (`brand_id`) REFERENCES `milli_brand` (`id`);
+ALTER TABLE `milli_goods` ADD CONSTRAINT `milli_goods_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `milli_product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `milli_sku` ADD CONSTRAINT `milli_sku_ibfk_1` FOREIGN KEY (`goods_id`) REFERENCES `milli_goods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `milli_goods_attribute` ADD CONSTRAINT `milli_goods_attribute_ibfk_1` FOREIGN KEY (`goods_id`) REFERENCES `milli_goods` (`id`);
+ALTER TABLE `milli_goods_attribute_value` ADD CONSTRAINT `milli_goods_attribute_value_ibfk_2` FOREIGN KEY (`goods_id`) REFERENCES `milli_goods` (`id`);
+ALTER TABLE `milli_goods_attribute_value` ADD CONSTRAINT `milli_goods_attribute_value_ibfk_3` FOREIGN KEY (`attribute_id`) REFERENCES `milli_goods_attribute` (`id`);
+ALTER TABLE `milli_brand` ADD CONSTRAINT `milli_brand_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `milli_category` (`id`);
+ALTER TABLE `milli_product_attribute` ADD CONSTRAINT `milli_product_attribute_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `milli_product` (`id`);
+ALTER TABLE `milli_product_attribute_value` ADD CONSTRAINT `milli_product_attribute_value_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `milli_product` (`id`);
+ALTER TABLE `milli_product_attribute_value` ADD CONSTRAINT `milli_product_attribute_value_ibfk_2` FOREIGN KEY (`attribute_id`) REFERENCES `milli_product_attribute` (`id`);
 
