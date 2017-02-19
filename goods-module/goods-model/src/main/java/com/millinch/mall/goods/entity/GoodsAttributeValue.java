@@ -22,14 +22,16 @@ public class GoodsAttributeValue implements Serializable {
 	@TableId(type = IdType.AUTO)
 	private Long id;
 
-	@TableField(value="sku_id")
-	private Long skuId;
-
 	@TableField(value="goods_id")
 	private Long goodsId;
 
 	@TableField(value="attribute_id")
 	private Long attributeId;
+
+    /**
+     * a unique code that represents one goods' attribute value
+     */
+	private Integer code;
 
 	private String value;
 
@@ -39,14 +41,6 @@ public class GoodsAttributeValue implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getSkuId() {
-        return skuId;
-    }
-
-    public void setSkuId(Long skuId) {
-        this.skuId = skuId;
     }
 
     public Long getGoodsId() {
@@ -63,6 +57,14 @@ public class GoodsAttributeValue implements Serializable {
 
     public void setAttributeId(Long attributeId) {
         this.attributeId = attributeId;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
     public String getValue() {

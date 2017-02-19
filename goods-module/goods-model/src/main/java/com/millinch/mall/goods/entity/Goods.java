@@ -30,11 +30,6 @@ public class Goods implements Serializable {
 	private String name;
 
 	/**
-	 * 数量
-	 */
-	private Integer quantity;
-
-	/**
 	 * 店铺ID
 	 */
 	@TableField(value="store_id")
@@ -64,14 +59,6 @@ public class Goods implements Serializable {
 		this.name = name;
 	}
 
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
 	public Long getStoreId() {
 		return storeId;
 	}
@@ -82,6 +69,6 @@ public class Goods implements Serializable {
 
 	@Override
 	public String toString() {
-		return new ToStringBuilder(this).append("id", id).append("productId", productId).append("name", name).append("quantity", quantity).append("storeId", storeId).toString();
+		return new ToStringBuilder(this).append("id", id).append("productId", productId).append("name", name).append("storeId", storeId).toString();
 	}
 }

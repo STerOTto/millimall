@@ -1,8 +1,7 @@
 package com.millinch.mall.goods.entity;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -12,7 +11,7 @@ import java.math.BigDecimal;
 
 /**
  * <p>
- * 
+ *  SKU (Stock Keeping Unit)
  * </p>
  *
  * @author John Zhang
@@ -26,12 +25,25 @@ public class Sku implements Serializable {
 	@TableId(type = IdType.AUTO)
 	private Long id;
 
-	@TableField(value="product_id")
-	private Long productId;
+	@TableField(value = "store_id")
+	private Long storeaId;
+
+	@TableField(value="goods_id")
+	private Long goodsId;
+
+	private String name;
+
+	/**
+	 * each SKU composed of attributes and values
+	 */
+	@TableField(value = "attribute_codes")
+	private String attributeCodes;
 
 	private String sku;
 
 	private BigDecimal price;
+
+	private Integer stock;
 
 	public Long getId() {
 		return id;
@@ -41,12 +53,36 @@ public class Sku implements Serializable {
 		this.id = id;
 	}
 
-	public Long getProductId() {
-		return productId;
+	public Long getStoreaId() {
+		return storeaId;
 	}
 
-	public void setProductId(Long productId) {
-		this.productId = productId;
+	public void setStoreaId(Long storeaId) {
+		this.storeaId = storeaId;
+	}
+
+	public Long getGoodsId() {
+		return goodsId;
+	}
+
+	public void setGoodsId(Long goodsId) {
+		this.goodsId = goodsId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAttributeCodes() {
+		return attributeCodes;
+	}
+
+	public void setAttributeCodes(String attributeCodes) {
+		this.attributeCodes = attributeCodes;
 	}
 
 	public String getSku() {
@@ -65,8 +101,16 @@ public class Sku implements Serializable {
 		this.price = price;
 	}
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).append("id", id).append("productId", productId).append("sku", sku).append("price", price).toString();
-    }
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this).append("id", id).append("storeaId", storeaId).append("goodsId", goodsId).append("name", name).append("attributeCodes", attributeCodes).append("sku", sku).append("price", price).append("stock", stock).toString();
+	}
 }
