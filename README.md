@@ -5,3 +5,12 @@ microservices architecture mall system, using docker to deploy.
 
 ## Architecture
 ![Project architecture](https://rawgit.com/johntostring/millimall/master/doc/millimall-architecture.png)
+
+### Service Discovery
+- Consul
+- Eureka
+
+### Container Orchestration
+- Kubernetes
+- Docker Compose
+
