@@ -4,17 +4,12 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 
 /**
- * <p>
- *  商品
- * </p>
  *
  * @author John Zhang
- * @since 2017-02-16
  */
 @TableName("milli_goods")
 public class Goods implements Serializable {
@@ -29,11 +24,9 @@ public class Goods implements Serializable {
 
 	private String name;
 
-	/**
-	 * 店铺ID
-	 */
 	@TableField(value="store_id")
 	private Long storeId;
+
 
 	public Long getId() {
 		return id;
@@ -47,8 +40,8 @@ public class Goods implements Serializable {
 		return productId;
 	}
 
-	public void setProductId(Long id) {
-		this.productId = id;
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
 	public String getName() {
@@ -67,8 +60,4 @@ public class Goods implements Serializable {
 		this.storeId = storeId;
 	}
 
-	@Override
-	public String toString() {
-		return new ToStringBuilder(this).append("id", id).append("productId", productId).append("name", name).append("storeId", storeId).toString();
-	}
 }

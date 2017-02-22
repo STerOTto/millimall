@@ -3,66 +3,70 @@ package com.millinch.mall.goods.entity;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import com.baomidou.mybatisplus.enums.IdType;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * This guy is lazy, nothing left.
  *
  * @author John Zhang
  */
-@TableName("mall_category")
+@TableName("milli_category")
 public class Category implements Serializable {
 
-	private static final long serialVersionUID = -8528075190093762574L;
+	private static final long serialVersionUID = 1L;
 
-	@TableId
-    private Integer id;
+	@TableId(type = IdType.AUTO)
+	private Integer id;
 
-    private String name;
+	private String name;
 
-    @TableField("parent_id")
-    private Integer parentId;
+	@TableField(value = "parent_id")
+	private Integer parentId;
 
-    @TableField(exist = false)
-    private List<Category> children;
+	private Integer ordinal;
 
-    public Integer getId() {
-        return id;
-    }
+	@TableField(exist = false)
+	private List<Category> children;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public Integer getParentId() {
-        return parentId;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
-    }
+	public Integer getParentId() {
+		return parentId;
+	}
 
-    public List<Category> getChildren() {
-        return children;
-    }
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
+	}
 
-    public void setChildren(List<Category> children) {
-        this.children = children;
-    }
+	public Integer getOrdinal() {
+		return ordinal;
+	}
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).append("id", id).append("name", name).append("parentId", parentId).append("children", children).toString();
-    }
+	public void setOrdinal(Integer ordinal) {
+		this.ordinal = ordinal;
+	}
+
+	public List<Category> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Category> children) {
+		this.children = children;
+	}
 }

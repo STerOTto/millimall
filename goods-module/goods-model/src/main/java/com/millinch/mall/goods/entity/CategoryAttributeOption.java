@@ -11,33 +11,26 @@ import java.io.Serializable;
  *
  * @author John Zhang
  */
-@TableName("milli_goods_attribute_value")
-public class GoodsAttributeValue implements Serializable {
+@TableName("milli_category_attribute_option")
+public class CategoryAttributeOption implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
 	@TableId(type = IdType.AUTO)
 	private Long id;
 
-	@TableField(value="goods_id")
-	private Long goodsId;
-
-	/**
-	 * a unique code that represents one goods\' attribute value
-	 */
-	private Integer code;
-
 	@TableField(value="attribute_id")
 	private Long attributeId;
 
-	private String value;
+	private String option;
 
-	@TableField(value = "value_image")
-	private String valueImage;
+	@TableField(value="option_image")
+	private String optionImage;
 
 	private String initial;
 
 	private Integer ordinal;
+
 
 
 	public Long getId() {
@@ -48,22 +41,6 @@ public class GoodsAttributeValue implements Serializable {
 		this.id = id;
 	}
 
-	public Long getGoodsId() {
-		return goodsId;
-	}
-
-	public void setGoodsId(Long goodsId) {
-		this.goodsId = goodsId;
-	}
-
-	public Integer getCode() {
-		return code;
-	}
-
-	public void setCode(Integer code) {
-		this.code = code;
-	}
-
 	public Long getAttributeId() {
 		return attributeId;
 	}
@@ -72,20 +49,20 @@ public class GoodsAttributeValue implements Serializable {
 		this.attributeId = attributeId;
 	}
 
-	public String getValue() {
-		return value;
+	public String getOption() {
+		return option;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setOption(String option) {
+		this.option = option;
 	}
 
-	public String getValueImage() {
-		return valueImage;
+	public String getOptionImage() {
+		return optionImage;
 	}
 
-	public void setValueImage(String valueImage) {
-		this.valueImage = valueImage;
+	public void setOptionImage(String optionImage) {
+		this.optionImage = optionImage;
 	}
 
 	public String getInitial() {

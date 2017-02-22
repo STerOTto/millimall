@@ -8,24 +8,26 @@ import com.baomidou.mybatisplus.enums.IdType;
 import java.io.Serializable;
 
 /**
- * <p>
- * 品牌
- * </p>
  *
  * @author John Zhang
  */
-@TableName("milli_brand")
-public class Brand implements Serializable {
+@TableName("milli_mall_category")
+public class MallCategory implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
 	@TableId(type = IdType.AUTO)
 	private Long id;
 
-	private String name;
-
 	@TableField(value="category_id")
 	private Long categoryId;
+
+	private String name;
+
+	@TableField(value="parent_id")
+	private Integer parentId;
+
+
 
 	public Long getId() {
 		return id;
@@ -33,6 +35,14 @@ public class Brand implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public String getName() {
@@ -43,12 +53,12 @@ public class Brand implements Serializable {
 		this.name = name;
 	}
 
-	public Long getCategoryId() {
-		return categoryId;
+	public Integer getParentId() {
+		return parentId;
 	}
 
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 
 }

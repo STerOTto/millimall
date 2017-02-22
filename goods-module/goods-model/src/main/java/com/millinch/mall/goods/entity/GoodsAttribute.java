@@ -8,17 +8,13 @@ import com.baomidou.mybatisplus.enums.IdType;
 import java.io.Serializable;
 
 /**
- * <p>
- * 商品属性
- * </p>
  *
  * @author John Zhang
- * @since 2017-02-16
  */
 @TableName("milli_goods_attribute")
 public class GoodsAttribute implements Serializable {
 
-	private static final long serialVersionUID = -1104001463453023178L;
+	private static final long serialVersionUID = 1L;
 
 	@TableId(type = IdType.AUTO)
 	private Long id;
@@ -28,27 +24,29 @@ public class GoodsAttribute implements Serializable {
 
 	private String name;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Long getGoodsId() {
-        return goodsId;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setGoodsId(Long goodsId) {
-        this.goodsId = goodsId;
-    }
+	public Long getGoodsId() {
+		return goodsId;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setGoodsId(Long goodsId) {
+		this.goodsId = goodsId;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }

@@ -11,33 +11,29 @@ import java.io.Serializable;
  *
  * @author John Zhang
  */
-@TableName("milli_goods_attribute_value")
-public class GoodsAttributeValue implements Serializable {
+@TableName("milli_product_attribute_value")
+public class ProductAttributeValue implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
 	@TableId(type = IdType.AUTO)
 	private Long id;
 
-	@TableField(value="goods_id")
-	private Long goodsId;
-
-	/**
-	 * a unique code that represents one goods\' attribute value
-	 */
-	private Integer code;
+	@TableField(value="product_id")
+	private Long productId;
 
 	@TableField(value="attribute_id")
 	private Long attributeId;
 
 	private String value;
 
-	@TableField(value = "value_image")
+	@TableField(value="value_image")
 	private String valueImage;
 
 	private String initial;
 
 	private Integer ordinal;
+
 
 
 	public Long getId() {
@@ -48,20 +44,12 @@ public class GoodsAttributeValue implements Serializable {
 		this.id = id;
 	}
 
-	public Long getGoodsId() {
-		return goodsId;
+	public Long getProductId() {
+		return productId;
 	}
 
-	public void setGoodsId(Long goodsId) {
-		this.goodsId = goodsId;
-	}
-
-	public Integer getCode() {
-		return code;
-	}
-
-	public void setCode(Integer code) {
-		this.code = code;
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
 	public Long getAttributeId() {

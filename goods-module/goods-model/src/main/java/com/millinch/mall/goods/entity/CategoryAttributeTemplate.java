@@ -8,14 +8,11 @@ import com.baomidou.mybatisplus.enums.IdType;
 import java.io.Serializable;
 
 /**
- * <p>
- * 品牌
- * </p>
  *
  * @author John Zhang
  */
-@TableName("milli_brand")
-public class Brand implements Serializable {
+@TableName("milli_category_attribute_template")
+public class CategoryAttributeTemplate implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,6 +23,11 @@ public class Brand implements Serializable {
 
 	@TableField(value="category_id")
 	private Long categoryId;
+
+	@TableField(value="attribute_type")
+	private Integer attributeType;
+
+
 
 	public Long getId() {
 		return id;
@@ -49,6 +51,14 @@ public class Brand implements Serializable {
 
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public Integer getAttributeType() {
+		return attributeType;
+	}
+
+	public void setAttributeType(Integer attributeType) {
+		this.attributeType = attributeType;
 	}
 
 }

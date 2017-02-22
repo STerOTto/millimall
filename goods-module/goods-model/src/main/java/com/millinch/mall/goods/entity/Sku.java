@@ -4,29 +4,26 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 /**
- * <p>
- *  SKU (Stock Keeping Unit)
- * </p>
  *
  * @author John Zhang
- * @since 2017-02-16
  */
 @TableName("milli_sku")
 public class Sku implements Serializable {
 
-	private static final long serialVersionUID = -3646332771711806628L;
+	private static final long serialVersionUID = 1L;
 
 	@TableId(type = IdType.AUTO)
 	private Long id;
 
+	/**
+	 * 店铺ID
+	 */
 	@TableField(value = "store_id")
-	private Long storeaId;
+	private Long storeId;
 
 	@TableField(value="goods_id")
 	private Long goodsId;
@@ -34,7 +31,7 @@ public class Sku implements Serializable {
 	private String name;
 
 	/**
-	 * each SKU composed of attributes and values
+	 * `each` sku composed of attributes and values
 	 */
 	@TableField(value = "attribute_codes")
 	private String attributeCodes;
@@ -45,6 +42,8 @@ public class Sku implements Serializable {
 
 	private Integer stock;
 
+
+
 	public Long getId() {
 		return id;
 	}
@@ -53,12 +52,12 @@ public class Sku implements Serializable {
 		this.id = id;
 	}
 
-	public Long getStoreaId() {
-		return storeaId;
+	public Long getStoreId() {
+		return storeId;
 	}
 
-	public void setStoreaId(Long storeaId) {
-		this.storeaId = storeaId;
+	public void setStoreId(Long storeId) {
+		this.storeId = storeId;
 	}
 
 	public Long getGoodsId() {
@@ -109,8 +108,4 @@ public class Sku implements Serializable {
 		this.stock = stock;
 	}
 
-	@Override
-	public String toString() {
-		return new ToStringBuilder(this).append("id", id).append("storeaId", storeaId).append("goodsId", goodsId).append("name", name).append("attributeCodes", attributeCodes).append("sku", sku).append("price", price).append("stock", stock).toString();
-	}
 }
