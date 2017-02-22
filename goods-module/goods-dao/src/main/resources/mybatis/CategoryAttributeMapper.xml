@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.millinch.mall.goods.mapper.CategoryAttributeMapper">
+	<!--开启二级缓存-->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+	<resultMap id="BaseResultMap" type="com.millinch.mall.goods.entity.CategoryAttribute">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="template_id" property="templateId" />
+		<result column="attribute_type" property="attributeType" />
+		<result column="input_type" property="inputType" />
+	</resultMap>
+
+    <!-- 通用查询结果列-->
+    <sql id="Base_Column_List">
+        id, name, template_id AS templateId, attribute_type AS attributeType, input_type AS inputType
+    </sql>
+</mapper>

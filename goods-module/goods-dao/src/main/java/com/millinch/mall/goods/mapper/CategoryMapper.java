@@ -4,9 +4,13 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.millinch.mall.goods.entity.Category;
 
 /**
- * This guy is lazy, nothing left.
+ * <p>
+ * Mapper接口
+ * </p>
  *
  * @author John Zhang
+ * @since 2017-02-22
  */
 public interface CategoryMapper extends BaseMapper<Category> {
+
 }

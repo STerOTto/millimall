@@ -6,13 +6,17 @@
 
 	<resultMap id="BaseResultMap" type="com.millinch.mall.goods.entity.Sku">
 		<id column="id" property="id" />
-		<result column="product_id" property="id" />
+		<result column="store_id" property="storeId" />
+		<result column="goods_id" property="goodsId" />
+		<result column="name" property="name" />
+		<result column="attribute_codes" property="attributeCodes" />
 		<result column="sku" property="sku" />
 		<result column="price" property="price" />
+		<result column="stock" property="stock" />
 	</resultMap>
 
     <!-- 通用查询结果列-->
     <sql id="Base_Column_List">
-        id, product_id AS id, sku, price
+        id, store_id AS storeId, goods_id AS goodsId, name, attribute_codes AS attributeCodes, sku, price, stock
     </sql>
 </mapper>

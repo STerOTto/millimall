@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.millinch.mall.goods.mapper.BrandMapper">
+<mapper namespace="com.millinch.mall.goods.mapper.CategoryMapper">
 	<!--开启二级缓存-->
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 
-	<resultMap id="BaseResultMap" type="com.millinch.mall.goods.entity.Brand">
+	<resultMap id="BaseResultMap" type="com.millinch.mall.goods.entity.Category">
 		<id column="id" property="id" />
 		<result column="name" property="name" />
-		<result column="category_id" property="id" />
+		<result column="parent_id" property="parentId" />
+		<result column="ordinal" property="ordinal" />
 	</resultMap>
 
     <!-- 通用查询结果列-->
     <sql id="Base_Column_List">
-        id, name, category_id AS id
+        id, name, parent_id AS parentId, ordinal
     </sql>
 </mapper>

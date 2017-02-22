@@ -24,7 +24,7 @@ public class GoodsDaoConfig extends DaoConfig {
 
     @Override
     public String getMapperLocations() {
-        return "classpath*:mapper/*-mapper.xml";
+        return "classpath*:mapper/*Mapper.xml";
     }
 
     @Override

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.millinch.mall.goods.mapper.CategoryMapper">
+<mapper namespace="com.millinch.mall.goods.mapper.CategoryAttributeTemplateMapper">
 	<!--开启二级缓存-->
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 
-	<resultMap id="BaseResultMap" type="com.millinch.mall.goods.entity.Category">
+	<resultMap id="BaseResultMap" type="com.millinch.mall.goods.entity.CategoryAttributeTemplate">
 		<id column="id" property="id" />
 		<result column="name" property="name" />
-		<result column="parent_id" property="id" />
+		<result column="category_id" property="categoryId" />
+		<result column="attribute_type" property="attributeType" />
 	</resultMap>
 
     <!-- 通用查询结果列-->
     <sql id="Base_Column_List">
-        id, name, parent_id AS id
+        id, name, category_id AS categoryId, attribute_type AS attributeType
     </sql>
 </mapper>

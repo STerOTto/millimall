@@ -1,7 +1,7 @@
 package com.millinch.mall.goods.mapper;
 
-import com.millinch.mall.goods.entity.Sku;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.millinch.mall.goods.entity.Sku;
 
 /**
  * <p>
@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * </p>
  *
  * @author John Zhang
- * @since 2017-02-16
+ * @since 2017-02-22
  */
 public interface SkuMapper extends BaseMapper<Sku> {
 
