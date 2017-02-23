@@ -6,9 +6,11 @@ import Vuex from 'vuex'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import router from './routes'
+import axios from 'axios'
 
 Vue.use(ElementUI)
 Vue.use(Vuex)
+Vue.prototype.$http = axios
 
 router.beforeEach((to, from, next) => {
   let isAuthenticated = JSON.parse(window.sessionStorage.getItem('isAuthenticated') || 'false')

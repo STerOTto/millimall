@@ -9,7 +9,7 @@
           <el-menu-item index="2-2">选项2</el-menu-item>
           <el-menu-item index="2-3">选项3</el-menu-item>
         </el-submenu>
-        <el-menu-item index="3"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
+        <el-menu-item index="3"><a href="javascript:void(0)" v-on:click="httpTest">httpTest</a></el-menu-item>
         <el-menu-item index="3"><a href="javascript:void(0)" v-on:click="logoff">注销</a></el-menu-item>
       </el-menu>
     </div>
@@ -50,6 +50,15 @@ export default {
     }
   },
   methods: {
+    httpTest () {
+      this.$http.get('https://api.github.com/users/johntostring')
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
     logoff () {
       window.sessionStorage.setItem('isAuthenticated', 'false')
       router.replace('/login')
