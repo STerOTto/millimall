@@ -23,9 +23,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     private CategoryMapper categoryMapper;
 
     public List<Category> getCategoryTree() {
-        Category example = new Category();
-        example.setParentId(-1);
-        List<Category> categories = categoryMapper.selectList(new EntityWrapper<Category>(example));
+        List<Category> categories = categoryMapper.selectOrderedListByParent(-1);
         if (categories == null) {
             categories = Collections.emptyList();
         } else {
@@ -37,9 +35,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     }
 
     private void loadChildren(Category category) {
-        Category example = new Category();
-        example.setParentId(category.getId());
-        List<Category> categories = categoryMapper.selectList(new EntityWrapper<Category>(example));
+        List<Category> categories = categoryMapper.selectOrderedListByParent(category.getId());
         if (categories != null && categories.size() > 0) {
             category.setChildren(categories);
             for (Category cate : categories) {
