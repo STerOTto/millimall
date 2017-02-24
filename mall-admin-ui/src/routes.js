@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 import Login from './components/Login'
-import Hello from './components/Hello'
+import Index from './components/Index'
 
 export default new Router({
   mode: 'history',
@@ -15,8 +15,8 @@ export default new Router({
       hidden: true
     },
     {
-      path: '/hello',
-      component: Hello,
+      path: '/index',
+      component: Index,
       name: '',
       hidden: true
     }
