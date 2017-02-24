@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  *
