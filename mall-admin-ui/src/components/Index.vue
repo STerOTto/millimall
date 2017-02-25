@@ -1,34 +1,27 @@
 <template>
   <div class="hello">
+    <TopNav>
+      <!--<span slot="appName">Mall Admin</span>-->
+    </TopNav>
 
     <div class="console-sidebar">
-
-      <el-menu default-active="2" @open="handleOpen" @close="handleClose">
-        <el-submenu index="1">
-          <template slot="title"><i class="el-icon-message"></i>导航一</template>
-          <el-menu-item-group>
-            <template slot="title">分组一</template>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="分组2">
-            <el-menu-item index="1-3">选项3</el-menu-item>
-          </el-menu-item-group>
-          <el-submenu index="1-4">
-            <template slot="title">选项4</template>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
-          </el-submenu>
-        </el-submenu>
-        <el-menu-item index="2"><i class="el-icon-menu"></i>导航二</el-menu-item>
-        <el-menu-item index="3"><i class="el-icon-setting"></i>导航三</el-menu-item>
+      <el-menu default-active="/category" @open="handleOpen" @close="handleClose" router>
+        <template v-for="(route, index) in menu">
+          <template v-if="route.children && route.name">
+            <el-submenu :index="route.path">
+              <template slot="title"><i class="el-icon-message"></i>{{route.name}}</template>
+              <el-menu-item :index="cRoute.path" v-for="cRoute in route.children">{{cRoute.name}}</el-menu-item>
+            </el-submenu>
+          </template>
+          <template v-if="!route.children && route.name">
+            <el-menu-item :index="route.path"><i class="el-icon-message"></i>{{route.name}}</el-menu-item>
+          </template>
+        </template>
       </el-menu>
     </div>
 
-    <div class="console-topbar">
-      <TopNav></TopNav>
-      <el-row>
-        <router-view></router-view>
-      </el-row>
+    <div class="console-content">
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -44,7 +37,23 @@
       return {
         msg: 'Welcome to Your Vue.js App',
         activeIndex: '1',
-        activeIndex2: '1'
+        activeIndex2: '1',
+        menu: [
+          {
+            path: '/',
+            name: 'Dashboard'
+          },
+          {
+            path: '/',
+            name: '类目管理',
+            children: [
+              {
+                path: '/category',
+                name: '后台类目'
+              }
+            ]
+          }
+        ]
       }
     },
     methods: {
@@ -79,11 +88,6 @@
   .console-topbar {
     margin-left: 230px;
   }
-  .console-sidebar .logo {
-    display: inline-block;
-    vertical-align: middle;
-    height: 60px;
-  }
   .sidebar-header {
     text-align: center;
   }
@@ -94,7 +98,17 @@
     bottom: 0;
     background: #eef1f6;
   }
+  .console-content {
+    position: relative;
+    top: 60px;
+    margin-left: 230px;
+    padding: 20px 10px;
+  }
   a {
     color: #42b983;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
   }
 </style>

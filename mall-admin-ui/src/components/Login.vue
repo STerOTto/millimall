@@ -42,7 +42,7 @@
       handleLogin () {
         window.sessionStorage.setItem('isAuthenticated', 'true')
         this.isAuthenticated = true
-        router.replace('/index')
+        router.replace('/')
       }
     }
   }

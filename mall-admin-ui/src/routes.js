@@ -4,6 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 import Login from './components/Login'
 import Index from './components/Index'
+import Category from './components/category/Category'
 
 export default new Router({
   mode: 'history',
@@ -15,10 +16,18 @@ export default new Router({
       hidden: true
     },
     {
-      path: '/index',
+      path: '/',
       component: Index,
       name: '',
-      hidden: true
+      hidden: true,
+      children: [
+        {
+          path: '/category',
+          component: Category,
+          name: '后台类目',
+          hidden: true
+        }
+      ]
     }
   ]
 })
