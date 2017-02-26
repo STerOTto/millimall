@@ -3,7 +3,7 @@ spring:
     name: goods-restful-api
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_URL_DOCKER:localhost:13306}/mall_goods?verifyServerCertificate=false&useSSL=false&characterEncoding=UTF-8
+    url: jdbc:mysql://${MYSQL_URL_DOCKER:localhost:13306}/millimall_product?verifyServerCertificate=false&useSSL=false&characterEncoding=UTF-8
     username: root
     password: 14yhl9t
   cloud:
