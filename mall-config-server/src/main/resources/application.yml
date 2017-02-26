@@ -10,8 +10,11 @@ spring:
         native:
           search-locations: file:${SPRING_CONFIG_DIR:${HOME}/.millimall/config-server-files}
     consul:
-      port: 8500
-      host: localhost
+      host: ${CONSUL_HOST_DOCKER:localhost}
+      port: ${CONSUL_PORT_DOCKER:8500}
+  rabbitmq:
+    host: ${RABBITMQ_HOST_DOCKER:localhost}
+    port: ${RABBITMQ_PORT_DOCKER:5672}
 management:
   security:
     enabled: false
