@@ -9,15 +9,35 @@ services:
 #      SERVICE_NAME: 'www-hello'
 #      SERVICE_CHECK_HTTP: '/'
 #      SERVICE_CHECK_INTERVAL: '5s'
+  config-server:
+    image: millinch/mall-config-server
+    container_name: "config-server"
+#    depends_on:
+#      - RabbitMQ
+#      - consul
+    networks:
+      - "consul-cloud-network"
+    volumes:
+      - "${HOME}/.millimall/config-server-files:${HOME}/.millimall/config-server-files"
+    environment:
+      SERVICE_CHECK_HTTP: '/health'
+      SERVICE_CHECK_INTERVAL: '5s'
+      SPRING_CONFIG_DIR: '${HOME}/.millimall/config-server-files'
+      CONSUL_HOST_DOCKER: consul
+      CONSUL_PORT_DOCKER: 8500
+      RABBITMQ_HOST_DOCKER: RabbitMQ
+      RABBITMQ_PORT_DOCKER: 5672
+      JAVA_OPTS: '-Xms128m -Xmx512m'
+    ports:
+      - 8888:8888
   oauth2-server:
     image: millinch/mall-oauth2-server
     container_name: "oauth2-server"
-    depends_on:
-      - consul
-      - registrator
-      - lb
-      - OAuth2MySQL
-      - RedisServer
+#    depends_on:
+#      - OAuth2MySQL
+#      - RedisServer
+#      - config-server
+#      - consul
     networks:
       - "consul-cloud-network"
     environment:

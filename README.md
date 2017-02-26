@@ -8,9 +8,15 @@ microservices architecture mall system, using docker to deploy.
 
 ### Service Discovery
 - Consul
-- Eureka
+- Kubernetes provides
 
 ### Container Orchestration
 - Kubernetes
 - Docker Compose
 
+## Start required services
+- config-server
+- oauth2-server
+```
+docker-compose -f consul.yml -f database.yml -f docker-compose.yml up -d
+```
