@@ -29,8 +29,8 @@ security:
 #    enabled: false
   oauth2:
     client:
-      accessTokenUri: http://localhost:9999/sso/oauth/token
-      userAuthorizationUri: http://localhost:9999/sso/oauth/authorize
+      accessTokenUri: http://${OAUTH2_SERVER_DOCKER:'localhost:9999'}/sso/oauth/token
+      userAuthorizationUri: http://${OAUTH2_SERVER_DOCKER:'localhost:9999'}/sso/oauth/authorize
       clientId: mall-admin-gateway-client
       clientSecret: 123456
     resource:
