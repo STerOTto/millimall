@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { createCategory } from './category-api'
 
 Vue.use(Vuex)
 
@@ -13,28 +14,27 @@ const store = new Vuex.Store({
 
   actions: {
     addCategory: ({ commit }, category) => {
-      console.log('action addCategory', category)
       commit('ADD_CATEGORY', {category})
     }
   },
 
   mutations: {
     ADD_CATEGORY: (state, { category }) => {
-      console.log('mutations ADD_CATEGORY', category)
-      if (category.parentId === -1) {
-        state.categoryList.push(category)
-      } else {
-        let parentCate = state.categoryList.find(cate => { return (cate.id === category.parentId) })
+      let asRoot = category.parentId === -1
+      let parentCate = state.categoryList.find(cate => { return (cate.id === category.parentId) })
 
-        if (parentCate) {
-          if (!parentCate.children) {
-            parentCate.children = []
+      if (asRoot || parentCate) {
+        createCategory().then((res) => {
+          console.log('createCategory res:', res)
+          if (asRoot) {
+            state.categoryList.push(category)
+          } else {
+            if (!parentCate.children) {
+              Vue.set(parentCate, 'children', [])
+            }
+            parentCate.children.push(category)
           }
-          parentCate.children.push(category)
-          // parentCate.children = parentCate.children.concat()
-          console.log('find parentCate', parentCate)
-          state.categoryList = state.categoryList.concat()
-        }
+        })
       }
     }
   },
