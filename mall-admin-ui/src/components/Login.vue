@@ -16,6 +16,8 @@
 
 <script>
   import router from '../routes'
+  import axios from 'axios'
+  import {getAccessToken} from '../store/category-api'
 
   export default {
     data () {
@@ -40,9 +42,17 @@
     },
     methods: {
       handleLogin () {
-        window.sessionStorage.setItem('isAuthenticated', 'true')
-        this.isAuthenticated = true
-        router.replace('/')
+        // TODO refactor hard code
+        getAccessToken('grant_type=password&scope=read&username=test&password=123456')
+        .then((res) => {
+          if (res.data.access_token) {
+            window.sessionStorage.setItem('isAuthenticated', 'true')
+            window.sessionStorage.setItem('access_token', res.data.access_token)
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + window.sessionStorage.getItem('access_token')
+            this.isAuthenticated = true
+            router.replace('/')
+          }
+        })
       }
     }
   }
