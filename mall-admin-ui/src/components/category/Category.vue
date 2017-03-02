@@ -9,13 +9,22 @@
       <el-col :xs="24" :sm="12">
         <el-card>
           <h3 slot="header">商品类目</h3>
-          <el-tree ref="tree"
+          <el-tree ref="categoryTree"
             :data="categoryList"
             :props="{label: 'name'}"
             :default-expand-all="expandAll"
             node-key="id"
             @node-click="toggleCategoryNode">
           </el-tree>
+
+          <ul>
+            <li v-for="cate in categoryList">
+              {{cate.name}}
+              <ul v-if="cate.children && cate.children.length > 0">
+                <li v-for="child in cate.children">{{child.name}}</li>
+              </ul>
+            </li>
+          </ul>
         </el-card>
       </el-col>
       <el-col :xs="24" :sm="12">
@@ -51,7 +60,7 @@ export default {
 
   data () {
     return {
-      expandAll: true,
+      expandAll: false,
       mockId: 1,
       asRoot: false,
       newCategory: {
@@ -87,11 +96,19 @@ export default {
 
     saveNode () {
       this.$refs['cateForm'].validate((valid) => {
+        console.log(this.$refs['categoryTree'])
         console.log('submit!', this.newCategory)
         if (valid) {
-          this.newCategory.id = this.mockId++
-          this.addCategory(JSON.parse(JSON.stringify(this.newCategory)))
-          console.log('valid')
+          this.addCategory({
+            id: this.mockId++,
+            name: this.newCategory.name,
+            parentId: this.newCategory.parentId
+          })
+          .then(() => {
+            this.newCategory.name = ''
+            this.$refs['categoryTree'].$forceUpdate()
+          })
+          // this.newCategory.name = ''
         } else {
           console.log('invalid')
           return false

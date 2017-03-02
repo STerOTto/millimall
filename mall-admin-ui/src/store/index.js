@@ -24,7 +24,7 @@ const store = new Vuex.Store({
       let parentCate = state.categoryList.find(cate => { return (cate.id === category.parentId) })
 
       if (asRoot || parentCate) {
-        createCategory().then((res) => {
+        createCategory(category).then((res) => {
           console.log('createCategory res:', res)
           if (asRoot) {
             state.categoryList.push(category)
