@@ -7,12 +7,11 @@ zuul:
     goods:
       sensitiveHeaders:
       path: /goods/**
-      serviceId: goods-restful-api
+      url: http://localhost:8080
     oauth2:
       sensitiveHeaders:
       path: /sso/**
-      serviceId: oauth2-server
-      stripPrefix: false
+      url: http://localhost:9999/sso
 
 spring:
   application:
