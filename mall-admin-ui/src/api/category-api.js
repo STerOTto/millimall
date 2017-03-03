@@ -19,5 +19,6 @@ export const createCategory = (params) => {
 }
 
 export const getCategoryList = (params) => {
+  axios.defaults.headers.get['Authorization'] = 'Bearer ' + window.sessionStorage.getItem('access_token')
   return axios.get(`${adminURL}/goods/categories`, params)
 }
