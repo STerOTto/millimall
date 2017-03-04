@@ -17,7 +17,7 @@
 <script>
   import router from '../routes'
   import axios from 'axios'
-  import {getAccessToken} from '../store/category-api'
+  import {getAccessToken} from '../api/category-api'
 
   export default {
     data () {

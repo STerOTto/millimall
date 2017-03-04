@@ -10,7 +10,7 @@
         <el-card>
           <h3 slot="header">商品类目</h3>
           <el-tree ref="categoryTree"
-            :data="categoryList"
+            :data="categories"
             :props="{label: 'name'}"
             :default-expand-all="expandAll"
             node-key="id"
@@ -18,7 +18,7 @@
           </el-tree>
 
           <ul>
-            <li v-for="cate in categoryList">
+            <li v-for="cate in categories">
               {{cate.name}}
               <ul v-if="cate.children && cate.children.length > 0">
                 <li v-for="child in cate.children">{{child.name}}</li>
@@ -75,13 +75,18 @@ export default {
     }
   },
 
-  computed: mapGetters([
-    'categoryList'
-  ]),
+  computed: mapGetters({
+    categories: 'allCategories'
+  }),
+
+  created () {
+    this.getCategoryList()
+  },
 
   methods: {
     ...mapActions([
-      'addCategory'
+      'addCategory',
+      'getCategoryList'
     ]),
 
     toggleAsRoot (state) {
