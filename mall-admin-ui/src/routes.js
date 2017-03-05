@@ -6,7 +6,7 @@ import Login from './components/Login'
 import Index from './components/Index'
 import Category from './components/category/Category'
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -31,3 +31,5 @@ export default new Router({
     }
   ]
 })
+
+export default router

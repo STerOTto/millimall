@@ -29,6 +29,7 @@
 <script>
   import router from '../routes'
   import TopNav from './TopNav'
+  import * as types from '../store/mutation-types'
 
   export default {
     components: { TopNav },
@@ -67,7 +68,7 @@
           })
       },
       logoff () {
-        window.sessionStorage.setItem('isAuthenticated', 'false')
+        this.$store.state.commit(types.LOGOUT)
         router.replace('/login')
       },
       handleOpen (key, keyPath) {

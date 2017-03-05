@@ -1,30 +1,27 @@
 <template>
-  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm card-box loginform">
+  <el-form :model="loginForm" :rules="rules2" ref="loginForm" label-position="left" label-width="0px" class="demo-ruleForm card-box loginform">
     <h3 class="title">系统登录</h3>
     <el-form-item prop="account">
-      <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
+      <el-input type="text" v-model="loginForm.account" auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
     <el-form-item prop="checkPass">
-      <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="密码"></el-input>
+      <el-input type="password" v-model="loginForm.checkPass" auto-complete="off" placeholder="密码"></el-input>
     </el-form-item>
     <el-checkbox v-model="checked" checked style="margin:0px 0px 35px 0px;">记住密码</el-checkbox>
     <el-form-item style="width:100%;">
-      <el-button type="primary" style="width:100%;" @click.native.prevent="handleLogin" :loading="isAuthenticated">登录</el-button>
+      <el-button type="primary" style="width:100%;" @click.native.prevent="handleLogin" :loading="isLogging">登录</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
-  import router from '../routes'
-  import axios from 'axios'
-  import {getAccessToken} from '../api/category-api'
+  import * as types from '../store/mutation-types'
 
   export default {
     data () {
       return {
-        isAuthenticated: false,
-        ruleForm2: {
-          account: 'admin',
+        loginForm: {
+          account: 'test',
           checkPass: '123456'
         },
         rules2: {
@@ -37,20 +34,30 @@
             // { validator: validaePass2 }
           ]
         },
-        checked: true
+        checked: true,
+        isLogging: false
       }
     },
     methods: {
       handleLogin () {
-        // TODO refactor hard code
-        getAccessToken('grant_type=password&scope=read&username=test&password=123456')
+        this.isLogging = true
+
+        let instance = this.axios.create({
+          headers: {
+            'Authorization': 'Basic bWFsbC1zYW1wbGUtY2xpZW50OjEyMzQ1Ng==',
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        })
+        instance.post('/sso/oauth/token', 'grant_type=password&scope=read&username=' + this.loginForm.account + '&password=' + this.loginForm.checkPass)
         .then((res) => {
           if (res.data.access_token) {
-            window.sessionStorage.setItem('isAuthenticated', 'true')
-            window.sessionStorage.setItem('access_token', res.data.access_token)
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + window.sessionStorage.getItem('access_token')
-            this.isAuthenticated = true
-            router.replace('/')
+            let auth = res.data
+            this.$store.commit(types.LOGIN, {auth})
+            let redirect = decodeURIComponent(this.$route.query.redirect || '/')
+            this.$router.push({
+              path: redirect
+            })
+            this.isLogging = false
           }
         })
       }
