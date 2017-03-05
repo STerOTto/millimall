@@ -35,6 +35,6 @@ public class CategoryApi {
         } else {
             builder.message("创建失败");
         }
-        return ResponseEntity.ok(insert);
+        return ResponseEntity.ok(builder.done());
     }
 }
