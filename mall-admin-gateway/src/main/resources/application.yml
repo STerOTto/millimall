@@ -13,6 +13,11 @@ zuul:
       path: /sso/**
       serviceId: oauth2-server
       stripPrefix: false
+  add-proxy-headers: true
+  ignored-headers: Access-Control-Allow-Origin,
+                   Access-Control-Allow-Methods,
+                   Access-Control-Allow-Headers,
+                   Access-Control-Max-Age
 
 spring:
   application:

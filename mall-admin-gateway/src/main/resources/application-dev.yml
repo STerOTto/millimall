@@ -12,6 +12,12 @@ zuul:
       sensitiveHeaders:
       path: /sso/**
       url: http://localhost:9999/sso
+      strip-prefix: true
+  add-proxy-headers: true
+  ignored-headers: Access-Control-Allow-Origin,
+                   Access-Control-Allow-Methods,
+                   Access-Control-Allow-Headers,
+                   Access-Control-Max-Age
 
 spring:
   application:
