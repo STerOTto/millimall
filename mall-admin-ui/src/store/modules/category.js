@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import * as type from '../mutation-types'
+import * as types from '../mutation-types'
 import { createCategory, getCategoryList } from '../../api/category-api'
 
 const state = {
@@ -7,26 +7,28 @@ const state = {
 }
 
 const getters = {
-  categoryList: state => state.categoryList
+  allCategories: state => state.categoryList
 }
 
 const actions = {
   addCategory: ({ commit }, category) => {
-    commit(type.ADD_CATEGORY, {category})
+    commit(types.ADD_CATEGORY, {category})
   },
   getCategoryList: ({ commit }) => {
     getCategoryList().then(res => {
-      let list = res.data
-      commit(type.RECEIVE_CATEGORY_LIST, { list })
+      let categoryList = res.data
+      console.log('getCategoryList', res, categoryList)
+      commit(types.RECEIVE_CATEGORY_LIST, { categoryList })
     })
   }
 }
 
 const mutations = {
-  [type.RECEIVE_CATEGORY_LIST]: (state, { categoryList }) => {
+  [types.RECEIVE_CATEGORY_LIST]: (state, { categoryList }) => {
+    console.log('mutations', categoryList)
     state.categoryList = categoryList
   },
-  [type.ADD_CATEGORY]: (state, { category }) => {
+  [types.ADD_CATEGORY]: (state, { category }) => {
     let asRoot = category.parentId === -1
     let parentCate = state.categoryList.find(cate => { return (cate.id === category.parentId) })
 
