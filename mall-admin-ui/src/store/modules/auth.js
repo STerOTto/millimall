@@ -12,10 +12,9 @@ const auth = {
   },
 
   mutations: {
-    [types.LOGIN]: (state, {auth}) => {
-      window.sessionStorage.setItem(AUTH_KEY, JSON.stringify(auth))
-      state.authInfo = auth
-      console.log('mutations - login', state.authInfo)
+    [types.LOGIN]: (state, {authInfo}) => {
+      window.sessionStorage.setItem(AUTH_KEY, JSON.stringify(authInfo))
+      state.authInfo = authInfo
     },
     [types.LOGOUT]: (state) => {
       window.sessionStorage.removeItem(AUTH_KEY)

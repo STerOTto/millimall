@@ -14,7 +14,7 @@
   </el-form>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
   import * as types from '../store/mutation-types'
 
   export default {
@@ -48,11 +48,11 @@
             'Content-Type': 'application/x-www-form-urlencoded'
           }
         })
-        instance.post('/sso/oauth/token', 'grant_type=password&scope=read&username=' + this.loginForm.account + '&password=' + this.loginForm.checkPass)
+        instance.post('/sso/oauth/token', `grant_type=password&scope=read&username=${this.loginForm.account}&password=${this.loginForm.checkPass}`)
         .then((res) => {
           if (res.data.access_token) {
-            let auth = res.data
-            this.$store.commit(types.LOGIN, {auth})
+            let authInfo = res.data
+            this.$store.commit(types.LOGIN, {authInfo})
             let redirect = decodeURIComponent(this.$route.query.redirect || '/')
             this.$router.push({
               path: redirect

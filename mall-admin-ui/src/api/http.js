@@ -11,9 +11,8 @@ axios.defaults.headers.common['Content-Type'] = 'application/json'
 // http request 拦截器
 axios.interceptors.request.use(
   config => {
-    console.log('request - interceptors', store.state.auth.authInfo.access_token)
     if (store.state.auth.authInfo) {
-      config.headers.Authorization = `Bearer ${store.state.auth.authInfo.access_token}`
+      config.headers.Authorization = `${store.state.auth.authInfo.token_type} ${store.state.auth.authInfo.access_token}`
     }
     return config
   },
@@ -24,12 +23,11 @@ axios.interceptors.request.use(
 // http response 拦截器
 axios.interceptors.response.use(
   response => {
-    console.log('response - interceptors')
     return response
   },
   error => {
+    console.log('http error', error)
     if (error.response) {
-      console.log('http error', store, router, types)
       switch (error.response.status) {
         case 401:
           // 401 清除token信息并跳转到登录页面

@@ -101,8 +101,6 @@ export default {
 
     saveNode () {
       this.$refs['cateForm'].validate((valid) => {
-        console.log(this.$refs['categoryTree'])
-        console.log('submit!', this.newCategory)
         if (valid) {
           this.addCategory({
             id: this.mockId++,
@@ -115,14 +113,12 @@ export default {
           })
           // this.newCategory.name = ''
         } else {
-          console.log('invalid')
           return false
         }
       })
     },
 
     toggleCategoryNode (data, node, tree) {
-      console.log(data, node, tree)
       this.newCategory.parentId = data.id
       if (data.id === -1) {
         this.newCategory.parentName = '顶级类目'

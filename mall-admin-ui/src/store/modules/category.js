@@ -17,7 +17,6 @@ const actions = {
   getCategoryList: ({ commit }) => {
     getCategoryList().then(res => {
       let categoryList = res.data
-      console.log('getCategoryList', res, categoryList)
       commit(types.RECEIVE_CATEGORY_LIST, { categoryList })
     })
   }
@@ -25,7 +24,6 @@ const actions = {
 
 const mutations = {
   [types.RECEIVE_CATEGORY_LIST]: (state, { categoryList }) => {
-    console.log('mutations', categoryList)
     state.categoryList = categoryList
   },
   [types.ADD_CATEGORY]: (state, { category }) => {
@@ -34,7 +32,6 @@ const mutations = {
 
     if (asRoot || parentCate) {
       createCategory(category).then((res) => {
-        console.log('createCategory res:', res)
         if (asRoot) {
           state.categoryList.push(category)
         } else {

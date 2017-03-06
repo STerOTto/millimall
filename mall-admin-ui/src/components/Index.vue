@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script>
+<script type="text/babel">
   import router from '../routes'
   import TopNav from './TopNav'
   import * as types from '../store/mutation-types'
