@@ -24,10 +24,8 @@ new Vue({
   components: { App }
 }).$mount('#app')
 
-// TODO 页面刷新时，重新赋值token, doesn't work yet
 let authInfo = window.sessionStorage.getItem('MALL_ADMIN_AUTH')
 if (authInfo) {
   authInfo = JSON.parse(authInfo)
-  console.log('refresh', authInfo)
-  store.commit(types.LOGIN, authInfo)
+  store.commit(types.LOGIN, {authInfo})
 }
