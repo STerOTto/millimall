@@ -10,23 +10,40 @@
 
     </div>
     <div class="nav-right">
-      <el-menu theme="dark" mode="horizontal">
+      <el-menu theme="dark" mode="horizontal" @select="logoff" menu-trigger="click">
         <el-submenu index="2">
           <template slot="title">我的工作台</template>
           <el-menu-item index="2-1">选项1</el-menu-item>
           <el-menu-item index="2-2">选项2</el-menu-item>
-          <el-menu-item index="2-3">选项3</el-menu-item>
+          <el-menu-item index="logoff" >注销</el-menu-item>
         </el-submenu>
       </el-menu>
     </div>
   </div>
 </template>
 <script type="text/ecmascript-6">
+  import * as types from '../store/mutation-types'
   export default {
-    name: 'topNav'
+    name: 'topNav',
+    methods: {
+      logoff (key, keyPath) {
+        console.log(key, keyPath)
+        if (key === 'logoff') {
+          this.$confirm('确定注销？', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$store.commit(types.LOGOUT)
+            this.$router.replace('/login')
+          }).catch(() => {
+          })
+        }
+      }
+    }
   }
 </script>
-<style lang="scss" scoped>
+<style lang="scss" scoped type="text/scss">
 $nav-height: 60px;
 $nav-bg-color: #324157;
 $nav-text-color: #fff;
