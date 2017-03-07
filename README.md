@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://rawgit.com/johntostring/millimall/master/doc/logo.png" alt="Millimall E-commerce" width="256">
+  <br>
+</p>
 # Online Shopping Mall - Microservices Architecture In Practice
 
 > The goal of this project is to use Spring Cloud to build a practical
