@@ -43,7 +43,7 @@
     }
   }
 </script>
-<style lang="scss" scoped type="text/scss">
+<style lang="scss" scoped>
 $nav-height: 60px;
 $nav-bg-color: #324157;
 $nav-text-color: #fff;
