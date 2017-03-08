@@ -5,7 +5,7 @@
     </TopNav>
 
     <div class="console-sidebar">
-      <el-menu default-active="/category" @open="handleOpen" @close="handleClose" router>
+      <el-menu default-active="/category" @open="handleOpen" @close="handleClose" router unique-opened>
         <template v-for="(route, index) in menu">
           <template v-if="route.children && route.name">
             <el-submenu :index="route.path">
@@ -39,18 +39,29 @@
         msg: 'Welcome to Your Vue.js App',
         activeIndex: '1',
         activeIndex2: '1',
+        isRouterMenu: true,
         menu: [
           {
             path: '/',
             name: 'Dashboard'
           },
           {
-            path: '/',
+            path: '/category',
             name: '类目管理',
             children: [
               {
                 path: '/category',
                 name: '后台类目'
+              }
+            ]
+          },
+          {
+            path: '/goods',
+            name: '商品管理',
+            children: [
+              {
+                path: '/create-goods',
+                name: '发布商品'
               }
             ]
           }
