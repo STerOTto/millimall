@@ -1,0 +1,138 @@
+<template>
+  <div>
+    <el-row>
+      <el-col :span="24">
+        <admin-breadcrumb></admin-breadcrumb>
+      </el-col>
+    </el-row>
+    <el-row :gutter="10">
+      <el-col :xs="24" :sm="12">
+        <el-card>
+          <h3 slot="header">商品类目</h3>
+          <el-tree ref="categoryTree"
+            :data="categories"
+            :props="{label: 'name'}"
+            :default-expand-all="expandAll"
+            node-key="id"
+            @node-click="toggleCategoryNode">
+          </el-tree>
+
+          <ul>
+            <li v-for="cate in categories">
+              {{cate.name}}
+              <ul v-if="cate.children && cate.children.length > 0">
+                <li v-for="child in cate.children">{{child.name}}</li>
+              </ul>
+            </li>
+          </ul>
+        </el-card>
+      </el-col>
+      <el-col :xs="24" :sm="12">
+        <el-card>
+          <h3 slot="header">管理属性模板</h3>
+          <el-form :label-position="'right'" label-width="100px" :model="newCategory" ref="cateForm" :rules="rules">
+            <input type="hidden" v-model="newCategory.parentId"/>
+            <el-form-item label="模板名称">
+              <el-input v-model="newTemplate.name"></el-input>
+            </el-form-item>
+            <el-form-item label="父级类目" prop="parentName">
+              <el-input v-model="newTemplate.categoryName" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="属性类型" prop="name">
+              <el-radio-group v-model="newTemplate.attributeType">
+                <el-radio label="搜索属性"></el-radio>
+                <el-radio label="规格属性"></el-radio>
+                <el-radio label="SKU属性"></el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-form>
+          <el-button @click="saveNode">保存</el-button>
+        </el-card>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+<style>
+</style>
+<script>
+import { mapGetters, mapActions } from 'vuex'
+
+export default {
+
+  data () {
+    return {
+      expandAll: false,
+      mockId: 1,
+      asRoot: false,
+      newCategory: {
+        name: '',
+        parentId: -1,
+        parentName: ''
+      },
+      newTemplate: {
+        name: null,
+        attributeType: null,
+        categoryId: null,
+        categoryName: null
+      },
+      rules: {
+        name: { required: true, message: '请输入类目名称', trigger: 'blur' },
+        parentName: { required: true, message: '请选择父级类目', trigger: 'blur' }
+      }
+    }
+  },
+
+  computed: mapGetters({
+    categories: 'allCategories'
+  }),
+
+  created () {
+    this.getCategoryList()
+  },
+
+  methods: {
+    ...mapActions([
+      'addCategory',
+      'getCategoryList'
+    ]),
+
+    toggleAsRoot (state) {
+      if (state === true) {
+        this.newCategory.parentId = -1
+        this.newCategory.parentName = ''
+        this.rules.parentName.required = false
+      } else {
+        this.rules.parentName.required = true
+      }
+    },
+
+    saveNode () {
+      this.$refs['cateForm'].validate((valid) => {
+        if (valid) {
+          this.addCategory({
+            id: this.mockId++,
+            name: this.newCategory.name,
+            parentId: this.newCategory.parentId
+          })
+          .then(() => {
+            this.newCategory.name = ''
+            this.$refs['categoryTree'].$forceUpdate()
+          })
+          // this.newCategory.name = ''
+        } else {
+          return false
+        }
+      })
+    },
+
+    toggleCategoryNode (data, node, tree) {
+      this.newCategory.parentId = data.id
+      if (data.id === -1) {
+        this.newCategory.parentName = '顶级类目'
+      } else {
+        this.newCategory.parentName = data.name
+      }
+    }
+  }
+}
+</script>
