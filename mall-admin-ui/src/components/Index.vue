@@ -39,18 +39,33 @@
         msg: 'Welcome to Your Vue.js App',
         activeIndex: '1',
         activeIndex2: '1',
+        isRouterMenu: true,
         menu: [
           {
             path: '/',
             name: 'Dashboard'
           },
           {
-            path: '/',
+            path: '#2',
             name: '类目管理',
             children: [
               {
                 path: '/category',
                 name: '后台类目'
+              },
+              {
+                path: '/category-attribute-template',
+                name: '类目属性模板'
+              }
+            ]
+          },
+          {
+            path: '#3',
+            name: '商品管理',
+            children: [
+              {
+                path: '/create-goods',
+                name: '发布商品'
               }
             ]
           }
