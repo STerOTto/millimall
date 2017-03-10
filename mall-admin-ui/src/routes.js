@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from './store/index'
 import Router from 'vue-router'
 
 Vue.use(Router)
@@ -44,6 +45,24 @@ const router = new Router({
       ]
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  // if (to.matched.some(r => r.meta.requireAuth)) {
+  //
+  // } else {
+  //   next();
+  // }
+  console.log(store)
+  if (to.path === '/login' || store.state.auth.authInfo.access_token) {
+    next()
+  } else {
+    console.log('require login')
+    next({
+      path: '/login',
+      query: {redirect: to.fullPath}
+    })
+  }
 })
 
 export default router
