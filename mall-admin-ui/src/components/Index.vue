@@ -5,7 +5,7 @@
     </TopNav>
 
     <div class="console-sidebar">
-      <el-menu default-active="/category" @open="handleOpen" @close="handleClose" router>
+      <el-menu default-active="/category" @open="handleOpen" @close="handleClose" unique-opened router>
         <template v-for="(route, index) in menu">
           <template v-if="route.children && route.name">
             <el-submenu :index="route.path">
@@ -46,7 +46,7 @@
             name: 'Dashboard'
           },
           {
-            path: '#2',
+            path: '2',
             name: '类目管理',
             children: [
               {
@@ -60,7 +60,7 @@
             ]
           },
           {
-            path: '#3',
+            path: '3',
             name: '商品管理',
             children: [
               {

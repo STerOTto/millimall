@@ -8,28 +8,52 @@
     <el-row :gutter="10">
       <el-col :xs="24" :sm="12">
         <el-card>
-          <h3 slot="header">商品类目</h3>
-          <el-tree ref="categoryTree"
-            :data="categories"
-            :props="{label: 'name'}"
-            :default-expand-all="expandAll"
-            node-key="id"
-            @node-click="toggleCategoryNode">
-          </el-tree>
-
-          <ul>
-            <li v-for="cate in categories">
-              {{cate.name}}
-              <ul v-if="cate.children && cate.children.length > 0">
-                <li v-for="child in cate.children">{{child.name}}</li>
-              </ul>
-            </li>
-          </ul>
+          <h3 slot="header">管理类目属性模板</h3>
+          <el-cascader
+            class="category-selector"
+            :options="options"
+            v-model="selectedOptions"
+            @change="handleChange">
+          </el-cascader>
+          <el-table
+            :data="templates"
+            border
+            style="width: 100%">
+            <el-table-column
+              label="模板类型"
+              width="100">
+              <template scope="table">
+                <el-tag type="success">{{table.row.attributeType}}</el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column
+              prop="name"
+              label="模板名称"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              prop="categoryId"
+              label="所属分类"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              label="操作"
+              width="180">
+              <template scope="scope">
+                <el-button
+                  type="primary"
+                  size="small"
+                  icon="edit"
+                  @click="handleTemplateEdit(scope.$index, scope.row)">编辑</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
         </el-card>
       </el-col>
-      <el-col :xs="24" :sm="12">
+
+      <el-col :span="12">
         <el-card>
-          <h3 slot="header">管理属性模板</h3>
+          <h3 slot="header">新增类目属性模板</h3>
           <el-form :label-position="'right'" label-width="100px" :model="newCategory" ref="cateForm" :rules="rules">
             <input type="hidden" v-model="newCategory.parentId"/>
             <el-form-item label="模板名称">
@@ -49,12 +73,16 @@
           <el-button @click="saveNode">保存</el-button>
         </el-card>
       </el-col>
+
     </el-row>
   </div>
 </template>
-<style>
+<style lang="scss" scoped>
+  .category-selector {
+    margin-bottom: 20px;
+  }
 </style>
-<script>
+<script type="text/babel">
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -75,6 +103,84 @@ export default {
         categoryId: null,
         categoryName: null
       },
+      selectedOptions: [],
+      options: [
+        {
+          value: 'zhinan',
+          label: '指南',
+          children: [
+            {
+              value: 'shejiyuanze',
+              label: '设计原则',
+              children: [
+                {
+                  value: 'yizhi',
+                  label: '一致'
+                },
+                {
+                  value: 'fankui',
+                  label: '反馈'
+                },
+                {
+                  value: 'xiaolv',
+                  label: '效率'
+                },
+                {
+                  value: 'kekong',
+                  label: '可控'
+                }
+              ]
+            },
+            {
+              value: 'daohang',
+              label: '导航',
+              children: [
+                {
+                  value: 'cexiangdaohang',
+                  label: '侧向导航'
+                },
+                {
+                  value: 'dingbudaohang',
+                  label: '顶部导航'
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      templates: [
+        {
+          name: '搜索属性模板',
+          attributeType: '搜索属性'
+        },
+        {
+          name: '规格属性模板',
+          attributeType: '规格属性'
+        },
+        {
+          name: 'SKU属性模板',
+          attributeType: 'SKU属性'
+        }
+      ],
+      attributeList: [
+        {
+          attribute: '颜色',
+          options: [
+            {
+              option: '红色',
+              optionImage: '/path/to/color',
+              initial: 'H',
+              ordinal: 1
+            },
+            {
+              option: '蓝色',
+              optionImage: '/path/to/color',
+              initial: 'L',
+              ordinal: 2
+            }
+          ]
+        }
+      ],
       rules: {
         name: { required: true, message: '请输入类目名称', trigger: 'blur' },
         parentName: { required: true, message: '请选择父级类目', trigger: 'blur' }
@@ -132,6 +238,14 @@ export default {
       } else {
         this.newCategory.parentName = data.name
       }
+    },
+
+    handleChange (value) {
+      console.log(value)
+    },
+
+    handleTemplateEdit (index, template) {
+      console.log(index, template)
     }
   }
 }
