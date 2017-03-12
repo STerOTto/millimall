@@ -33,7 +33,7 @@
             </el-table-column>
             <el-table-column
               prop="categoryId"
-              label="所属分类"
+              label="所属类目"
               width="180">
             </el-table-column>
             <el-table-column
@@ -53,21 +53,47 @@
 
       <el-col :span="12">
         <el-card>
-          <h3 slot="header">新增类目属性模板</h3>
+          <h3 slot="header">编辑类目属性模板</h3>
           <el-form :label-position="'right'" label-width="100px" :model="newCategory" ref="cateForm" :rules="rules">
             <input type="hidden" v-model="newCategory.parentId"/>
             <el-form-item label="模板名称">
-              <el-input v-model="newTemplate.name"></el-input>
+              <el-input v-model="newTemplate.name" :disabled="true"></el-input>
             </el-form-item>
-            <el-form-item label="父级类目" prop="parentName">
+            <el-form-item label="所属类目">
               <el-input v-model="newTemplate.categoryName" :disabled="true"></el-input>
             </el-form-item>
-            <el-form-item label="属性类型" prop="name">
-              <el-radio-group v-model="newTemplate.attributeType">
-                <el-radio label="搜索属性"></el-radio>
-                <el-radio label="规格属性"></el-radio>
-                <el-radio label="SKU属性"></el-radio>
-              </el-radio-group>
+            <el-form-item label="属性类型">
+              <el-tag type="success">搜索属性</el-tag>
+            </el-form-item>
+            <el-form-item label="属性列表">
+              <el-table
+                :data="attributeList"
+                border
+                style="width: 100%">
+                <el-table-column
+                  label="属性名称"
+                  width="100">
+                  <template scope="table">
+                    <el-input v-model="attributeList[table.$index].attribute"></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  label="录入方式"
+                  width="180">
+                  <template scope="table">
+                    <el-radio-group v-model="table.row.inputType">
+                      <el-radio label="1">选择</el-radio>
+                      <el-radio label="2">输入</el-radio>
+                    </el-radio-group>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  prop="categoryName"
+                  label="所属类目"
+                  width="180">
+                </el-table-column>
+              </el-table>
+
             </el-form-item>
           </el-form>
           <el-button @click="saveNode">保存</el-button>
@@ -165,6 +191,25 @@ export default {
       attributeList: [
         {
           attribute: '颜色',
+          inputType: '1',
+          options: [
+            {
+              option: '红色',
+              optionImage: '/path/to/color',
+              initial: 'H',
+              ordinal: 1
+            },
+            {
+              option: '蓝色',
+              optionImage: '/path/to/color',
+              initial: 'L',
+              ordinal: 2
+            }
+          ]
+        },
+        {
+          attribute: '颜色',
+          inputType: '1',
           options: [
             {
               option: '红色',
@@ -180,6 +225,7 @@ export default {
             }
           ]
         }
+
       ],
       rules: {
         name: { required: true, message: '请输入类目名称', trigger: 'blur' },
