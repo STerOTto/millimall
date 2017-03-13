@@ -5,99 +5,59 @@
         <admin-breadcrumb></admin-breadcrumb>
       </el-col>
     </el-row>
-    <el-row :gutter="10">
-      <el-col :xs="24" :sm="12">
-        <el-card>
-          <h3 slot="header">管理类目属性模板</h3>
+    <el-row>
+      <el-col :span="12" :offset="6">
+        <div style="text-align:center">
+          <span>类目：</span>
           <el-cascader
             class="category-selector"
             :options="options"
             v-model="selectedOptions"
             @change="handleChange">
           </el-cascader>
-          <el-table
-            :data="templates"
-            border
-            style="width: 100%">
-            <el-table-column
-              label="模板类型"
-              width="100">
-              <template scope="table">
-                <el-tag type="success">{{table.row.attributeType}}</el-tag>
-              </template>
-            </el-table-column>
-            <el-table-column
-              prop="name"
-              label="模板名称"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="categoryId"
-              label="所属类目"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              label="操作"
-              width="180">
-              <template scope="scope">
-                <el-button
-                  type="primary"
-                  size="small"
-                  icon="edit"
-                  @click="handleTemplateEdit(scope.$index, scope.row)">编辑</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-card>
+        </div>
       </el-col>
+    </el-row>
+    <el-row :gutter="10">
 
-      <el-col :span="12">
-        <el-card>
-          <h3 slot="header">编辑类目属性模板</h3>
-          <el-form :label-position="'right'" label-width="100px" :model="newCategory" ref="cateForm" :rules="rules">
-            <input type="hidden" v-model="newCategory.parentId"/>
-            <el-form-item label="模板名称">
-              <el-input v-model="newTemplate.name" :disabled="true"></el-input>
-            </el-form-item>
-            <el-form-item label="所属类目">
-              <el-input v-model="newTemplate.categoryName" :disabled="true"></el-input>
-            </el-form-item>
-            <el-form-item label="属性类型">
-              <el-tag type="success">搜索属性</el-tag>
-            </el-form-item>
-            <el-form-item label="属性列表">
-              <el-table
-                :data="attributeList"
-                border
-                style="width: 100%">
-                <el-table-column
-                  label="属性名称"
-                  width="100">
-                  <template scope="table">
-                    <el-input v-model="attributeList[table.$index].attribute"></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column
-                  label="录入方式"
-                  width="180">
-                  <template scope="table">
-                    <el-radio-group v-model="table.row.inputType">
-                      <el-radio label="1">选择</el-radio>
-                      <el-radio label="2">输入</el-radio>
-                    </el-radio-group>
-                  </template>
-                </el-table-column>
-                <el-table-column
-                  prop="categoryName"
-                  label="所属类目"
-                  width="180">
-                </el-table-column>
-              </el-table>
+      <el-col :xs="24">
+        <el-tabs v-model="activeTab">
+          <el-tab-pane label="搜索属性模板" name="first">
+            <el-collapse v-model="activeAttributes" @change="handleChange">
+              <el-collapse-item v-for="attr in attributeList" :title="attr.attribute" :name="attr.attribute">
+                <div>
+                  <el-radio-group v-model="attr.inputType">
+                    <el-radio label="1">选择</el-radio>
+                    <el-radio label="2">输入</el-radio>
+                  </el-radio-group>
+                </div>
+                <div>
+                  <el-table
+                    v-if="attr.inputType == '1'"
+                    :data="attr.options"
+                    border
+                    style="width: 100%">
+                    <el-table-column
+                      label="选项名称"
+                      width="100">
+                      <template scope="table">
+                        <el-input v-model="attr.option"></el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column
+                      label="选项图片"
+                      width="180">
+                    </el-table-column>
+                  </el-table>
+                </div>
+              </el-collapse-item>
+            </el-collapse>
+          </el-tab-pane>
 
-            </el-form-item>
-          </el-form>
-          <el-button @click="saveNode">保存</el-button>
-        </el-card>
+          <el-tab-pane label="规格属性模板" name="second">配置管理</el-tab-pane>
+
+          <el-tab-pane label="SKU属性模板" name="third">角色管理</el-tab-pane>
+        </el-tabs>
       </el-col>
 
     </el-row>
@@ -118,6 +78,8 @@ export default {
       expandAll: false,
       mockId: 1,
       asRoot: false,
+      activeTab: 'first',
+      activeAttributes: '1',
       newCategory: {
         name: '',
         parentId: -1,
@@ -208,17 +170,17 @@ export default {
           ]
         },
         {
-          attribute: '颜色',
+          attribute: '尺寸',
           inputType: '1',
           options: [
             {
-              option: '红色',
+              option: 'S',
               optionImage: '/path/to/color',
               initial: 'H',
               ordinal: 1
             },
             {
-              option: '蓝色',
+              option: 'M',
               optionImage: '/path/to/color',
               initial: 'L',
               ordinal: 2
