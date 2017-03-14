@@ -25,11 +25,14 @@
           <el-tab-pane label="搜索属性模板" name="first">
             <el-collapse v-model="activeAttributes" @change="handleChange">
               <el-collapse-item v-for="attr in attributeList" :title="attr.attribute" :name="attr.attribute">
-                <div>
-                  <el-radio-group v-model="attr.inputType">
-                    <el-radio label="1">选择</el-radio>
-                    <el-radio label="2">输入</el-radio>
-                  </el-radio-group>
+                <div class="el-form-item">
+                  <label class="el-form-item__label">录入方式：</label>
+                  <div class="el-form-item__content">
+                    <el-radio-group v-model="attr.inputType">
+                      <el-radio label="1">选择</el-radio>
+                      <el-radio label="2">输入</el-radio>
+                    </el-radio-group>
+                  </div>
                 </div>
                 <div>
                   <el-table
@@ -38,14 +41,32 @@
                     border
                     style="width: 100%">
                     <el-table-column
-                      label="选项名称"
-                      width="100">
+                      label="选项名称">
                       <template scope="table">
-                        <el-input v-model="attr.option"></el-input>
+                        <el-input v-model="table.row.option"></el-input>
                       </template>
                     </el-table-column>
                     <el-table-column
                       label="选项图片"
+                      width="180">
+                      <template scope="table">
+                        <el-upload
+                          class="avatar-uploader"
+                          action="//jsonplaceholder.typicode.com/posts/"
+                          :show-file-list="false"
+                          :on-success="handleOptionImageSuccess">
+                          <img v-if="table.row.optionImage" :src="table.row.optionImage" class="avatar">
+                          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        </el-upload>
+                      </template>
+                    </el-table-column>
+                    <el-table-column
+                      label="选项首字母"
+                      prop="initial">
+                    </el-table-column>
+                    <el-table-column
+                      label="选项序号"
+                      prop="ordinal"
                       width="180">
                     </el-table-column>
                   </el-table>
@@ -188,11 +209,7 @@ export default {
           ]
         }
 
-      ],
-      rules: {
-        name: { required: true, message: '请输入类目名称', trigger: 'blur' },
-        parentName: { required: true, message: '请选择父级类目', trigger: 'blur' }
-      }
+      ]
     }
   },
 
@@ -210,50 +227,17 @@ export default {
       'getCategoryList'
     ]),
 
-    toggleAsRoot (state) {
-      if (state === true) {
-        this.newCategory.parentId = -1
-        this.newCategory.parentName = ''
-        this.rules.parentName.required = false
-      } else {
-        this.rules.parentName.required = true
-      }
-    },
-
-    saveNode () {
-      this.$refs['cateForm'].validate((valid) => {
-        if (valid) {
-          this.addCategory({
-            id: this.mockId++,
-            name: this.newCategory.name,
-            parentId: this.newCategory.parentId
-          })
-          .then(() => {
-            this.newCategory.name = ''
-            this.$refs['categoryTree'].$forceUpdate()
-          })
-          // this.newCategory.name = ''
-        } else {
-          return false
-        }
-      })
-    },
-
-    toggleCategoryNode (data, node, tree) {
-      this.newCategory.parentId = data.id
-      if (data.id === -1) {
-        this.newCategory.parentName = '顶级类目'
-      } else {
-        this.newCategory.parentName = data.name
-      }
-    },
-
     handleChange (value) {
       console.log(value)
     },
 
     handleTemplateEdit (index, template) {
       console.log(index, template)
+    },
+
+    handleOptionImageSuccess (res, file) {
+      console.log(res, file)
+      // this.imageUrl = window.URL.createObjectURL(file.raw)
     }
   }
 }
