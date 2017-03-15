@@ -34,42 +34,62 @@
                     </el-radio-group>
                   </div>
                 </div>
-                <div>
-                  <el-table
-                    v-if="attr.inputType == '1'"
-                    :data="attr.options"
-                    border
-                    style="width: 100%">
-                    <el-table-column
-                      label="选项名称">
-                      <template scope="table">
-                        <el-input v-model="table.row.option"></el-input>
-                      </template>
-                    </el-table-column>
-                    <el-table-column
-                      label="选项图片"
-                      width="180">
-                      <template scope="table">
-                        <el-upload
-                          class="avatar-uploader"
-                          action="//jsonplaceholder.typicode.com/posts/"
-                          :show-file-list="false"
-                          :on-success="handleOptionImageSuccess">
-                          <img v-if="table.row.optionImage" :src="table.row.optionImage" class="avatar">
-                          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                        </el-upload>
-                      </template>
-                    </el-table-column>
-                    <el-table-column
-                      label="选项首字母"
-                      prop="initial">
-                    </el-table-column>
-                    <el-table-column
-                      label="选项序号"
-                      prop="ordinal"
-                      width="180">
-                    </el-table-column>
-                  </el-table>
+
+                <div class="el-table el-table--border el-table--enable-row-hover el-table--enable-row-transition">
+                  <table width="100%">
+                    <thead>
+                    <tr>
+                      <th class="is-leaf">
+                        <div class="cell">选项名称</div>
+                      </th>
+                      <th class="is-leaf">
+                        <div class="cell">选项图片</div>
+                      </th>
+                      <th class="is-leaf">
+                        <div class="cell">选项首字母</div>
+                      </th>
+                      <th class="is-leaf">
+                        <div class="cell">选项序号</div>
+                      </th>
+                    </tr>
+                    </thead>
+                    <draggable element="tbody" v-model="attr.options" :options="dragOptions">
+                      <tr v-for="opt in attr.options" class="sortable-option">
+                        <td>
+                          <el-input v-model="opt.option" v-on:change="testTable(opt)"></el-input>
+                        </td>
+                        <td>
+                          <el-row>
+                            <el-col :span="12">
+                              <el-upload
+                                class="option-img-uploader"
+                                action="//jsonplaceholder.typicode.com/posts/"
+                                :show-file-list="false"
+                                :on-success="handleOptionImageSuccess(opt)">
+                                <template v-if="opt.optionImage">
+                                  <img :src="opt.optionImage" class="option-img">
+                                </template>
+                                <template v-else>
+                                  <i class="el-icon-plus option-img-uploader-icon"></i>
+                                </template>
+                              </el-upload>
+                            </el-col>
+                            <el-col :span="12">
+                              <div class="option-img-delete">
+                                <el-button v-if="opt.optionImage" type="danger" icon="delete" size="mini">刪除</el-button>
+                              </div>
+                            </el-col>
+                          </el-row>
+                        </td>
+                        <td>{{opt.initial}}</td>
+                        <td align="center">
+                          <div class="drag-handler">
+                            <el-button type="primary" icon="d-caret" size="small">拖拽</el-button>
+                          </div>
+                        </td>
+                      </tr>
+                    </draggable>
+                  </table>
                 </div>
               </el-collapse-item>
             </el-collapse>
@@ -84,16 +104,66 @@
     </el-row>
   </div>
 </template>
-<style lang="scss" scoped>
+<style lang="scss">
+  $uploader-width: 50px;
+  $uploader-margin: 5px;
+
   .category-selector {
     margin-bottom: 20px;
+  }
+  ul.edit-options-sort {
+    margin: 0;
+    padding: 0;
+    li.sortable-option {
+      list-style-type: none;
+      border: 1px solid #989898;
+      padding:5px 10px;
+      &:last-child {
+        margin-top: -1px;
+      }
+    }
+  }
+  .option-img {
+    width: $uploader-width;
+    height: $uploader-width;
+    display: inline-block;
+  }
+  .option-img-uploader {
+    .el-upload {
+      border: 1px dashed #d9d9d9;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      width: $uploader-width;
+      height: $uploader-width;
+      line-height: $uploader-width;
+      margin: $uploader-margin;
+      &:hover {
+        border-color: #20a0ff;
+      }
+    }
+    .option-img-uploader-icon {
+      font-size: 15px;
+      color: #8c939d;
+      width: $uploader-width;
+      height: $uploader-width;
+      line-height: $uploader-width;
+      text-align: center;
+    }
+  }
+  .option-img-delete {
+    line-height: $uploader-width + ($uploader-margin * 2)
   }
 </style>
 <script type="text/babel">
 import { mapGetters, mapActions } from 'vuex'
+import draggable from 'vuedraggable'
 
 export default {
-
+  components: {
+    draggable
+  },
   data () {
     return {
       expandAll: false,
@@ -101,6 +171,9 @@ export default {
       asRoot: false,
       activeTab: 'first',
       activeAttributes: '1',
+      dragOptions: {
+        draggable: '.sortable-option'
+      },
       newCategory: {
         name: '',
         parentId: -1,
@@ -178,7 +251,7 @@ export default {
           options: [
             {
               option: '红色',
-              optionImage: '/path/to/color',
+              optionImage: '',
               initial: 'H',
               ordinal: 1
             },
@@ -235,9 +308,16 @@ export default {
       console.log(index, template)
     },
 
-    handleOptionImageSuccess (res, file) {
-      console.log(res, file)
-      // this.imageUrl = window.URL.createObjectURL(file.raw)
+    handleOptionImageSuccess (option) {
+      console.log('handleOptionImageSuccess call', option)
+      return (res, file) => {
+        option.optionImage = window.URL.createObjectURL(file.raw)
+        console.log('end:', option)
+      }
+    },
+
+    testTable (row) {
+      console.log(row)
     }
   }
 }
