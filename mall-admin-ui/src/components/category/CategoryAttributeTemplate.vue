@@ -10,9 +10,11 @@
         <div style="text-align:center">
           <span>类目：</span>
           <el-cascader
+            change-on-select
             class="category-selector"
-            :options="options"
-            v-model="selectedOptions"
+            :props="categoryCascaderProps"
+            :options="categories"
+            v-model="categories"
             @change="handleChange">
           </el-cascader>
         </div>
@@ -34,63 +36,7 @@
                     </el-radio-group>
                   </div>
                 </div>
-
-                <div class="el-table el-table--border el-table--enable-row-hover el-table--enable-row-transition">
-                  <table width="100%">
-                    <thead>
-                    <tr>
-                      <th class="is-leaf">
-                        <div class="cell">选项名称</div>
-                      </th>
-                      <th class="is-leaf">
-                        <div class="cell">选项图片</div>
-                      </th>
-                      <th class="is-leaf">
-                        <div class="cell">选项首字母</div>
-                      </th>
-                      <th class="is-leaf">
-                        <div class="cell">选项序号</div>
-                      </th>
-                    </tr>
-                    </thead>
-                    <draggable element="tbody" v-model="attr.options" :options="dragOptions">
-                      <tr v-for="opt in attr.options" class="sortable-option">
-                        <td>
-                          <el-input v-model="opt.option" v-on:change="testTable(opt)"></el-input>
-                        </td>
-                        <td>
-                          <el-row>
-                            <el-col :span="12">
-                              <el-upload
-                                class="option-img-uploader"
-                                action="//jsonplaceholder.typicode.com/posts/"
-                                :show-file-list="false"
-                                :on-success="handleOptionImageSuccess(opt)">
-                                <template v-if="opt.optionImage">
-                                  <img :src="opt.optionImage" class="option-img">
-                                </template>
-                                <template v-else>
-                                  <i class="el-icon-plus option-img-uploader-icon"></i>
-                                </template>
-                              </el-upload>
-                            </el-col>
-                            <el-col :span="12">
-                              <div class="option-img-delete">
-                                <el-button v-if="opt.optionImage" type="danger" icon="delete" size="mini">刪除</el-button>
-                              </div>
-                            </el-col>
-                          </el-row>
-                        </td>
-                        <td>{{opt.initial}}</td>
-                        <td align="center">
-                          <div class="drag-handler">
-                            <el-button type="primary" icon="d-caret" size="small">拖拽</el-button>
-                          </div>
-                        </td>
-                      </tr>
-                    </draggable>
-                  </table>
-                </div>
+                <options-editor v-if="attr.inputType == '1'" :options="attr.options"></options-editor>
               </el-collapse-item>
             </el-collapse>
           </el-tab-pane>
@@ -105,64 +51,17 @@
   </div>
 </template>
 <style lang="scss">
-  $uploader-width: 50px;
-  $uploader-margin: 5px;
-
   .category-selector {
     margin-bottom: 20px;
-  }
-  ul.edit-options-sort {
-    margin: 0;
-    padding: 0;
-    li.sortable-option {
-      list-style-type: none;
-      border: 1px solid #989898;
-      padding:5px 10px;
-      &:last-child {
-        margin-top: -1px;
-      }
-    }
-  }
-  .option-img {
-    width: $uploader-width;
-    height: $uploader-width;
-    display: inline-block;
-  }
-  .option-img-uploader {
-    .el-upload {
-      border: 1px dashed #d9d9d9;
-      border-radius: 6px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      width: $uploader-width;
-      height: $uploader-width;
-      line-height: $uploader-width;
-      margin: $uploader-margin;
-      &:hover {
-        border-color: #20a0ff;
-      }
-    }
-    .option-img-uploader-icon {
-      font-size: 15px;
-      color: #8c939d;
-      width: $uploader-width;
-      height: $uploader-width;
-      line-height: $uploader-width;
-      text-align: center;
-    }
-  }
-  .option-img-delete {
-    line-height: $uploader-width + ($uploader-margin * 2)
   }
 </style>
 <script type="text/babel">
 import { mapGetters, mapActions } from 'vuex'
-import draggable from 'vuedraggable'
+import OptionsEditor from '../common/OptionsEditor'
 
 export default {
   components: {
-    draggable
+    OptionsEditor
   },
   data () {
     return {
@@ -171,9 +70,6 @@ export default {
       asRoot: false,
       activeTab: 'first',
       activeAttributes: '1',
-      dragOptions: {
-        draggable: '.sortable-option'
-      },
       newCategory: {
         name: '',
         parentId: -1,
@@ -186,50 +82,10 @@ export default {
         categoryName: null
       },
       selectedOptions: [],
-      options: [
-        {
-          value: 'zhinan',
-          label: '指南',
-          children: [
-            {
-              value: 'shejiyuanze',
-              label: '设计原则',
-              children: [
-                {
-                  value: 'yizhi',
-                  label: '一致'
-                },
-                {
-                  value: 'fankui',
-                  label: '反馈'
-                },
-                {
-                  value: 'xiaolv',
-                  label: '效率'
-                },
-                {
-                  value: 'kekong',
-                  label: '可控'
-                }
-              ]
-            },
-            {
-              value: 'daohang',
-              label: '导航',
-              children: [
-                {
-                  value: 'cexiangdaohang',
-                  label: '侧向导航'
-                },
-                {
-                  value: 'dingbudaohang',
-                  label: '顶部导航'
-                }
-              ]
-            }
-          ]
-        }
-      ],
+      categoryCascaderProps: {
+        value: 'id',
+        label: 'name'
+      },
       templates: [
         {
           name: '搜索属性模板',
@@ -286,9 +142,12 @@ export default {
     }
   },
 
-  computed: mapGetters({
-    categories: 'allCategories'
-  }),
+  computed: {
+    ...mapGetters({
+      categories: 'allCategories'
+
+    })
+  },
 
   created () {
     this.getCategoryList()
