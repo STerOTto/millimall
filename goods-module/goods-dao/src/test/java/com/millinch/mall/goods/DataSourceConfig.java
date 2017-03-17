@@ -17,7 +17,7 @@ public class DataSourceConfig {
     @Bean
     public DataSource dataSource() {
         return new DriverManagerDataSource(
-                "jdbc:mysql://localhost:13306/millinch_product?verifyServerCertificate=false&useSSL=false&characterEncoding=UTF-8",
+                "jdbc:mysql://localhost:13306/millimall_product?verifyServerCertificate=false&useSSL=false&characterEncoding=UTF-8",
                 "root", "14yhl9t"
         );
     }
