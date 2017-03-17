@@ -13,4 +13,14 @@
     <sql id="Base_Column_List">
         id, name, category_id AS categoryId, attribute_type AS attributeType
     </sql>
+
+	<select id="selectByCategoryIds" parameterType="long" resultType="CategoryAttributeTemplate">
+		SELECT
+			<include refid="Base_Column_List"/>
+		FROM milli_category_attribute_template as mcat
+		WHERE mcat.category_id IN
+        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
 </mapper>
